@@ -433,6 +433,51 @@
             color: #2e7d32;
             margin-bottom: 10px;
         }
+
+        .json-example {
+            background: #263238;
+            color: #eeffff;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .error-box {
+            background: #ffebee;
+            border: 1px solid #ef9a9a;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .error-box h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+
+        .process-steps {
+            background: #e8eaf6;
+            border: 1px solid #9fa8da;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .process-steps h4 {
+            color: #3949ab;
+            margin-bottom: 10px;
+        }
+
+        .process-steps ol {
+            margin-left: 20px;
+        }
+
+        .process-steps li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -549,32 +594,53 @@
                         </ul>
                     </div>
 
+                    <div class="error-box">
+                        <h4>⚠️ Важное замечание об ошибке:</h4>
+                        <p>Если вы получаете ошибку "can't parse stickers JSON object", это означает, что:</p>
+                        <ul>
+                            <li>Неправильный формат JSON в параметре stickers</li>
+                            <li>Отсутствуют обязательные поля в объектах стикеров</li>
+                            <li>Неправильные значения в полях</li>
+                        </ul>
+                        <p>Проверьте формат JSON согласно примерам ниже!</p>
+                    </div>
+
+                    <div class="process-steps">
+                        <h4>🔄 Правильный процесс создания стикерпака:</h4>
+                        <ol>
+                            <li><strong>Шаг 1:</strong> Загрузите каждый стикер с помощью метода <strong>uploadStickerFile</strong></li>
+                            <li><strong>Шаг 2:</strong> Получите FileID каждого загруженного стикера из ответа</li>
+                            <li><strong>Шаг 3:</strong> Создайте набор стикеров с правильным форматом JSON</li>
+                            <li><strong>Шаг 4:</strong> Используйте полученные FileID в параметре stickers</li>
+                        </ol>
+                    </div>
+
                     <div class="sticker-types">
                         <h4>🎨 Типы стикеров:</h4>
                         <table>
                             <tr>
                                 <th>Тип</th>
-                                <th>Описание</th>
                                 <th>Формат файла</th>
                                 <th>Размер</th>
+                                <th>Значение в format</th>
                             </tr>
                             <tr>
                                 <td><code>png</code></td>
-                                <td>Статический PNG стикер</td>
                                 <td>PNG</td>
                                 <td>512x512px</td>
+                                <td><code>"static"</code></td>
                             </tr>
                             <tr>
                                 <td><code>tgs</code></td>
-                                <td>Анимированный TGS стикер</td>
                                 <td>TGS (JSON)</td>
                                 <td>512x512px</td>
+                                <td><code>"animated"</code></td>
                             </tr>
                             <tr>
                                 <td><code>webm</code></td>
-                                <td>Видеостикер</td>
                                 <td>WEBM</td>
                                 <td>512x512px</td>
+                                <td><code>"video"</code></td>
                             </tr>
                         </table>
                     </div>
@@ -585,10 +651,70 @@
                         <ul>
                             <li><strong>sticker:</strong> FileID стикера (полученный после загрузки)</li>
                             <li><strong>emoji:</strong> Эмодзи для стикера</li>
-                            <li><strong>format:</strong> Формат стикера ('static', 'animated', 'video')</li>
+                            <li><strong>format:</strong> Формат стикера ("static", "animated", "video")</li>
                         </ul>
-                        <p><strong>Пример:</strong></p>
-                        <code>[{"sticker":"ABC123","emoji":"😀","format":"static"},{"sticker":"DEF456","emoji":"😃","format":"static"}]</code>
+                        
+                        <h5>Пример для PNG стикеров:</h5>
+                        <div class="json-example">[
+  {
+    "sticker": "ABC123",
+    "emoji": "😀",
+    "format": "static"
+  },
+  {
+    "sticker": "DEF456",
+    "emoji": "😃",
+    "format": "static"
+  }
+]</div>
+
+                        <h5>Пример для TGS стикеров:</h5>
+                        <div class="json-example">[
+  {
+    "sticker": "GHI789",
+    "emoji": "🎉",
+    "format": "animated"
+  },
+  {
+    "sticker": "JKL012",
+    "emoji": "🎊",
+    "format": "animated"
+  }
+]</div>
+
+                        <h5>Пример для WEBM стикеров:</h5>
+                        <div class="json-example">[
+  {
+    "sticker": "MNO345",
+    "emoji": "🔥",
+    "format": "video"
+  },
+  {
+    "sticker": "PQR678",
+    "emoji": "💫",
+    "format": "video"
+  }
+]</div>
+                    </div>
+
+                    <div class="process-steps">
+                        <h4>📋 Полный пример создания стикерпака:</h4>
+                        <p><strong>1. Загрузка стикера:</strong></p>
+                        <div class="json-example">https://api.telegram.org/botTOKEN/uploadStickerFile?user_id=123456789&sticker=@sticker.png&sticker_format=static</div>
+                        
+                        <p><strong>2. Ответ (получаем FileID):</strong></p>
+                        <div class="json-example">{
+  "ok": true,
+  "result": {
+    "file_id": "ABC123",
+    "file_unique_id": "UNIQUE123",
+    "file_size": 12345,
+    "file_path": "stickers/file123.png"
+  }
+}</div>
+                        
+                        <p><strong>3. Создание набора:</strong></p>
+                        <div class="json-example">https://api.telegram.org/botTOKEN/createNewStickerSet?user_id=123456789&name=MyStickers_by_mybot&title=Мои стикеры&sticker_type=png&stickers=[{"sticker":"ABC123","emoji":"😀","format":"static"}]</div>
                     </div>
                 </div>
             </div>
@@ -1668,7 +1794,7 @@
                 examples: [
                     {
                         description: 'Получить информацию о наборе стикеров',
-                        params: { name: 'Animals' }
+                        params: { name: 'Animals_by_mybot' }
                     }
                 ]
             },
@@ -1697,8 +1823,12 @@
                 },
                 examples: [
                     {
-                        description: 'Загрузить новый стикер',
+                        description: 'Загрузить новый PNG стикер',
                         params: { user_id: '123456789', sticker: 'https://example.com/sticker.png', sticker_format: 'static' }
+                    },
+                    {
+                        description: 'Загрузить новый TGS стикер',
+                        params: { user_id: '123456789', sticker: 'https://example.com/sticker.tgs', sticker_format: 'animated' }
                     }
                 ]
             },
@@ -1784,1134 +1914,4 @@
             },
             'setStickerEmojiList': {
                 name: 'setStickerEmojiList',
-                description: 'Установить список эмодзи для стикера',
-                category: 'stickers',
-                parameters: {
-                    'sticker': { type: 'string', required: true, description: 'FileID стикера' },
-                    'emoji_list': { type: 'array', required: true, description: 'Список эмодзи' }
-                },
-                examples: [
-                    {
-                        description: 'Установить эмодзи для стикера',
-                        params: { sticker: 'ABC123', emoji_list: '["😀", "😃"]' }
-                    }
-                ]
-            },
-            'setStickerKeywords': {
-                name: 'setStickerKeywords',
-                description: 'Установить ключевые слова для стикера',
-                category: 'stickers',
-                parameters: {
-                    'sticker': { type: 'string', required: true, description: 'FileID стикера' },
-                    'keywords': { type: 'array', required: false, description: 'Ключевые слова' }
-                },
-                examples: [
-                    {
-                        description: 'Установить ключевые слова',
-                        params: { sticker: 'ABC123', keywords: '["смешной", "веселый"]' }
-                    }
-                ]
-            },
-            'setStickerMaskPosition': {
-                name: 'setStickerMaskPosition',
-                description: 'Установить позицию маски для стикера',
-                category: 'stickers',
-                parameters: {
-                    'sticker': { type: 'string', required: true, description: 'FileID стикера' },
-                    'mask_position': { type: 'object', required: false, description: 'Позиция маски' }
-                },
-                examples: [
-                    {
-                        description: 'Установить позицию маски',
-                        params: { sticker: 'ABC123', mask_position: '{"point": "forehead", "x_shift": 0, "y_shift": 0, "scale": 1}' }
-                    }
-                ]
-            },
-            'setStickerSetTitle': {
-                name: 'setStickerSetTitle',
-                description: 'Установить заголовок набора стикеров',
-                category: 'stickers',
-                parameters: {
-                    'name': { type: 'string', required: true, description: 'Название набора' },
-                    'title': { type: 'string', required: true, description: 'Новый заголовок' }
-                },
-                examples: [
-                    {
-                        description: 'Изменить заголовок набора',
-                        params: { name: 'MyStickers_by_mybot', title: 'Новый заголовок' }
-                    }
-                ]
-            },
-            'setStickerSetThumbnail': {
-                name: 'setStickerSetThumbnail',
-                description: 'Установить миниатюру набора стикеров',
-                category: 'stickers',
-                parameters: {
-                    'name': { type: 'string', required: true, description: 'Название набора' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'thumbnail': { type: 'string', required: false, description: 'Миниатюра' },
-                    'format': { type: 'string', required: true, description: 'Формат' }
-                },
-                examples: [
-                    {
-                        description: 'Установить миниатюру набора',
-                        params: { name: 'MyStickers_by_mybot', user_id: '123456789', format: 'static' }
-                    }
-                ]
-            },
-            'setCustomEmojiStickerSetThumbnail': {
-                name: 'setCustomEmojiStickerSetThumbnail',
-                description: 'Установить миниатюру набора кастомных эмодзи',
-                category: 'stickers',
-                parameters: {
-                    'name': { type: 'string', required: true, description: 'Название набора' },
-                    'custom_emoji_id': { type: 'string', required: false, description: 'ID кастомного эмодзи' }
-                },
-                examples: [
-                    {
-                        description: 'Установить миниатюру для набора эмодзи',
-                        params: { name: 'MyEmojis_by_mybot', custom_emoji_id: '123456789' }
-                    }
-                ]
-            },
-            'deleteStickerSet': {
-                name: 'deleteStickerSet',
-                description: 'Удалить набор стикеров',
-                category: 'stickers',
-                parameters: {
-                    'name': { type: 'string', required: true, description: 'Название набора' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить набор стикеров',
-                        params: { name: 'MyStickers_by_mybot' }
-                    }
-                ]
-            },
-
-            // Inline режим
-            'answerInlineQuery': {
-                name: 'answerInlineQuery',
-                description: 'Ответить на inline запрос',
-                category: 'inline',
-                parameters: {
-                    'inline_query_id': { type: 'string', required: true, description: 'ID inline запроса' },
-                    'results': { type: 'array', required: true, description: 'Результаты' },
-                    'cache_time': { type: 'integer', required: false, description: 'Время кеширования' },
-                    'is_personal': { type: 'boolean', required: false, description: 'Персональный результат' },
-                    'next_offset': { type: 'string', required: false, description: 'Следующее смещение' },
-                    'button': { type: 'object', required: false, description: 'Кнопка' }
-                },
-                examples: [
-                    {
-                        description: 'Ответить на inline запрос',
-                        params: { inline_query_id: '123456789', results: '[{"type": "article", "id": "1", "title": "Результат", "input_message_content": {"message_text": "Текст"}}]' }
-                    }
-                ]
-            },
-
-            // Платежи
-            'sendInvoice': {
-                name: 'sendInvoice',
-                description: 'Отправить счет',
-                category: 'payments',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'title': { type: 'string', required: true, description: 'Название продукта' },
-                    'description': { type: 'string', required: true, description: 'Описание продукта' },
-                    'payload': { type: 'string', required: true, description: 'Полезная нагрузка' },
-                    'currency': { type: 'string', required: true, description: 'Валюта' },
-                    'prices': { type: 'array', required: true, description: 'Цены' },
-                    'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
-                    'max_tip_amount': { type: 'integer', required: false, description: 'Максимальная сумма чаевых' },
-                    'suggested_tip_amounts': { type: 'array', required: false, description: 'Предлагаемые суммы чаевых' },
-                    'start_parameter': { type: 'string', required: false, description: 'Стартовый параметр' },
-                    'provider_data': { type: 'string', required: false, description: 'Данные провайдера' },
-                    'photo_url': { type: 'string', required: false, description: 'URL фото' },
-                    'photo_size': { type: 'integer', required: false, description: 'Размер фото' },
-                    'photo_width': { type: 'integer', required: false, description: 'Ширина фото' },
-                    'photo_height': { type: 'integer', required: false, description: 'Высота фото' },
-                    'need_name': { type: 'boolean', required: false, description: 'Требуется имя' },
-                    'need_phone_number': { type: 'boolean', required: false, description: 'Требуется номер телефона' },
-                    'need_email': { type: 'boolean', required: false, description: 'Требуется email' },
-                    'need_shipping_address': { type: 'boolean', required: false, description: 'Требуется адрес доставки' },
-                    'send_phone_number_to_provider': { type: 'boolean', required: false, description: 'Отправить номер телефона провайдеру' },
-                    'send_email_to_provider': { type: 'boolean', required: false, description: 'Отправить email провайдеру' },
-                    'is_flexible': { type: 'boolean', required: false, description: 'Гибкая оплата' },
-                    'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
-                    'protect_content': { type: 'boolean', required: false, description: 'Защитить контент' },
-                    'reply_parameters': { type: 'object', required: false, description: 'Параметры ответа' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Отправить счет за товар',
-                        params: { chat_id: '123456789', title: 'Товар', description: 'Описание товара', payload: '123', currency: 'USD', prices: '[{"label": "Цена", "amount": 1000}]' }
-                    }
-                ]
-            },
-            'createInvoiceLink': {
-                name: 'createInvoiceLink',
-                description: 'Создать ссылку на счет',
-                category: 'payments',
-                parameters: {
-                    'title': { type: 'string', required: true, description: 'Название продукта' },
-                    'description': { type: 'string', required: true, description: 'Описание продукта' },
-                    'payload': { type: 'string', required: true, description: 'Полезная нагрузка' },
-                    'currency': { type: 'string', required: true, description: 'Валюта' },
-                    'prices': { type: 'array', required: true, description: 'Цены' },
-                    'max_tip_amount': { type: 'integer', required: false, description: 'Максимальная сумма чаевых' },
-                    'suggested_tip_amounts': { type: 'array', required: false, description: 'Предлагаемые суммы чаевых' },
-                    'provider_data': { type: 'string', required: false, description: 'Данные провайдера' },
-                    'photo_url': { type: 'string', required: false, description: 'URL фото' },
-                    'photo_size': { type: 'integer', required: false, description: 'Размер фото' },
-                    'photo_width': { type: 'integer', required: false, description: 'Ширина фото' },
-                    'photo_height': { type: 'integer', required: false, description: 'Высота фото' },
-                    'need_name': { type: 'boolean', required: false, description: 'Требуется имя' },
-                    'need_phone_number': { type: 'boolean', required: false, description: 'Требуется номер телефона' },
-                    'need_email': { type: 'boolean', required: false, description: 'Требуется email' },
-                    'need_shipping_address': { type: 'boolean', required: false, description: 'Требуется адрес доставки' },
-                    'send_phone_number_to_provider': { type: 'boolean', required: false, description: 'Отправить номер телефона провайдеру' },
-                    'send_email_to_provider': { type: 'boolean', required: false, description: 'Отправить email провайдеру' },
-                    'is_flexible': { type: 'boolean', required: false, description: 'Гибкая оплата' }
-                },
-                examples: [
-                    {
-                        description: 'Создать ссылку на оплату',
-                        params: { title: 'Товар', description: 'Описание товара', payload: '123', currency: 'USD', prices: '[{"label": "Цена", "amount": 1000}]' }
-                    }
-                ]
-            },
-            'answerShippingQuery': {
-                name: 'answerShippingQuery',
-                description: 'Ответить на запрос доставки',
-                category: 'payments',
-                parameters: {
-                    'shipping_query_id': { type: 'string', required: true, description: 'ID запроса доставки' },
-                    'ok': { type: 'boolean', required: true, description: 'Успешно' },
-                    'shipping_options': { type: 'array', required: false, description: 'Опции доставки' },
-                    'error_message': { type: 'string', required: false, description: 'Сообщение об ошибке' }
-                },
-                examples: [
-                    {
-                        description: 'Ответить на запрос доставки',
-                        params: { shipping_query_id: '123456789', ok: true, shipping_options: '[{"id": "1", "title": "Стандартная", "prices": [{"label": "Доставка", "amount": 500}]}]' }
-                    }
-                ]
-            },
-            'answerPreCheckoutQuery': {
-                name: 'answerPreCheckoutQuery',
-                description: 'Ответить на предоплатный запрос',
-                category: 'payments',
-                parameters: {
-                    'pre_checkout_query_id': { type: 'string', required: true, description: 'ID предоплатного запроса' },
-                    'ok': { type: 'boolean', required: true, description: 'Успешно' },
-                    'error_message': { type: 'string', required: false, description: 'Сообщение об ошибке' }
-                },
-                examples: [
-                    {
-                        description: 'Подтвердить предоплату',
-                        params: { pre_checkout_query_id: '123456789', ok: true }
-                    }
-                ]
-            },
-
-            // Telegram Stars
-            'getStarTransactions': {
-                name: 'getStarTransactions',
-                description: 'Получить транзакции Telegram Stars',
-                category: 'stars',
-                parameters: {
-                    'offset': { type: 'integer', required: false, description: 'Смещение' },
-                    'limit': { type: 'integer', required: false, description: 'Лимит' }
-                },
-                examples: [
-                    {
-                        description: 'Получить транзакции Stars',
-                        params: {}
-                    }
-                ]
-            },
-            'refundStarPayment': {
-                name: 'refundStarPayment',
-                description: 'Вернуть оплату Telegram Stars',
-                category: 'stars',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'telegram_payment_charge_id': { type: 'string', required: true, description: 'ID платежа Telegram' }
-                },
-                examples: [
-                    {
-                        description: 'Вернуть оплату Stars',
-                        params: { user_id: '123456789', telegram_payment_charge_id: 'charge123' }
-                    }
-                ]
-            },
-            'getMyStarBalance': {
-                name: 'getMyStarBalance',
-                description: 'Получить баланс Telegram Stars бота',
-                category: 'stars',
-                parameters: {},
-                examples: [
-                    {
-                        description: 'Получить баланс Stars',
-                        params: {}
-                    }
-                ]
-            },
-
-            // Подарки
-            'sendGift': {
-                name: 'sendGift',
-                description: 'Отправить подарок',
-                category: 'gifts',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'gift_id': { type: 'string', required: true, description: 'ID подарка' },
-                    'text': { type: 'string', required: false, description: 'Текст сообщения' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
-                    'pay_for_upgrade': { type: 'boolean', required: false, description: 'Оплатить апгрейд' }
-                },
-                examples: [
-                    {
-                        description: 'Отправить подарок пользователю',
-                        params: { user_id: '123456789', gift_id: 'gift123', text: 'С днем рождения!' }
-                    }
-                ]
-            },
-
-            // Бизнес аккаунты
-            'getBusinessConnection': {
-                name: 'getBusinessConnection',
-                description: 'Получить информацию о бизнес-соединении',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' }
-                },
-                examples: [
-                    {
-                        description: 'Получить информацию о бизнес-соединении',
-                        params: { business_connection_id: 'business123' }
-                    }
-                ]
-            },
-            'setBusinessAccountName': {
-                name: 'setBusinessAccountName',
-                description: 'Установить имя бизнес-аккаунта',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'first_name': { type: 'string', required: false, description: 'Имя' },
-                    'last_name': { type: 'string', required: false, description: 'Фамилия' }
-                },
-                examples: [
-                    {
-                        description: 'Установить имя бизнес-аккаунта',
-                        params: { business_connection_id: 'business123', first_name: 'Иван', last_name: 'Иванов' }
-                    }
-                ]
-            },
-            'setBusinessAccountUsername': {
-                name: 'setBusinessAccountUsername',
-                description: 'Установить username бизнес-аккаунта',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'username': { type: 'string', required: false, description: 'Username' }
-                },
-                examples: [
-                    {
-                        description: 'Установить username бизнес-аккаунта',
-                        params: { business_connection_id: 'business123', username: 'mybusiness' }
-                    }
-                ]
-            },
-            'setBusinessAccountBio': {
-                name: 'setBusinessAccountBio',
-                description: 'Установить bio бизнес-аккаунта',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'bio': { type: 'string', required: false, description: 'Bio' }
-                },
-                examples: [
-                    {
-                        description: 'Установить bio бизнес-аккаунта',
-                        params: { business_connection_id: 'business123', bio: 'Наш бизнес аккаунт' }
-                    }
-                ]
-            },
-            'getBusinessAccountStarBalance': {
-                name: 'getBusinessAccountStarBalance',
-                description: 'Получить баланс Stars бизнес-аккаунта',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' }
-                },
-                examples: [
-                    {
-                        description: 'Получить баланс Stars бизнес-аккаунта',
-                        params: { business_connection_id: 'business123' }
-                    }
-                ]
-            },
-            'transferBusinessAccountStars': {
-                name: 'transferBusinessAccountStars',
-                description: 'Перевести Stars с бизнес-аккаунта',
-                category: 'business',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'star_count': { type: 'integer', required: true, description: 'Количество Stars' }
-                },
-                examples: [
-                    {
-                        description: 'Перевести Stars с бизнес-аккаунта',
-                        params: { business_connection_id: 'business123', star_count: '100' }
-                    }
-                ]
-            },
-
-            // Сторис
-            'postStory': {
-                name: 'postStory',
-                description: 'Опубликовать сторис',
-                category: 'stories',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'content': { type: 'object', required: true, description: 'Контент сторис' }
-                },
-                examples: [
-                    {
-                        description: 'Опубликовать фото сторис',
-                        params: { business_connection_id: 'business123', content: '{"type": "photo", "media": "https://example.com/story.jpg"}' }
-                    }
-                ]
-            },
-            'editStory': {
-                name: 'editStory',
-                description: 'Редактировать сторис',
-                category: 'stories',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'story_id': { type: 'integer', required: true, description: 'ID сторис' },
-                    'content': { type: 'object', required: false, description: 'Новый контент' }
-                },
-                examples: [
-                    {
-                        description: 'Редактировать сторис',
-                        params: { business_connection_id: 'business123', story_id: '456', content: '{"type": "photo", "media": "https://example.com/new_story.jpg"}' }
-                    }
-                ]
-            },
-            'deleteStory': {
-                name: 'deleteStory',
-                description: 'Удалить сторис',
-                category: 'stories',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'story_id': { type: 'integer', required: true, description: 'ID сторис' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить сторис',
-                        params: { business_connection_id: 'business123', story_id: '456' }
-                    }
-                ]
-            },
-
-            // Чеклисты (новое в Bot API 9.1)
-            'sendChecklist': {
-                name: 'sendChecklist',
-                description: 'Отправить чеклист',
-                category: 'checklists',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
-                    'checklist': { type: 'object', required: true, description: 'Чеклист' }
-                },
-                examples: [
-                    {
-                        description: 'Отправить чеклист',
-                        params: { business_connection_id: 'business123', chat_id: '123456789', checklist: '{"tasks": [{"text": "Задача 1"}, {"text": "Задача 2"}]}' }
-                    }
-                ]
-            },
-            'editMessageChecklist': {
-                name: 'editMessageChecklist',
-                description: 'Редактировать чеклист в сообщении',
-                category: 'checklists',
-                parameters: {
-                    'business_connection_id': { type: 'string', required: true, description: 'ID бизнес-соединения' },
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: true, description: 'ID сообщения' },
-                    'checklist': { type: 'object', required: true, description: 'Новый чеклист' }
-                },
-                examples: [
-                    {
-                        description: 'Редактировать чеклист',
-                        params: { business_connection_id: 'business123', chat_id: '123456789', message_id: '789', checklist: '{"tasks": [{"text": "Обновленная задача"}]}' }
-                    }
-                ]
-            },
-
-            // Команды бота
-            'setMyCommands': {
-                name: 'setMyCommands',
-                description: 'Установить команды бота',
-                category: 'commands',
-                parameters: {
-                    'commands': { type: 'array', required: true, description: 'Команды' },
-                    'scope': { type: 'object', required: false, description: 'Область видимости' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Установить команды бота',
-                        params: { commands: '[{"command": "start", "description": "Начать"}]' }
-                    }
-                ]
-            },
-            'deleteMyCommands': {
-                name: 'deleteMyCommands',
-                description: 'Удалить команды бота',
-                category: 'commands',
-                parameters: {
-                    'scope': { type: 'object', required: false, description: 'Область видимости' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить команды бота',
-                        params: {}
-                    }
-                ]
-            },
-            'getMyCommands': {
-                name: 'getMyCommands',
-                description: 'Получить команды бота',
-                category: 'commands',
-                parameters: {
-                    'scope': { type: 'object', required: false, description: 'Область видимости' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Получить команды бота',
-                        params: {}
-                    }
-                ]
-            },
-            'setMyName': {
-                name: 'setMyName',
-                description: 'Установить имя бота',
-                category: 'commands',
-                parameters: {
-                    'name': { type: 'string', required: false, description: 'Имя' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Установить имя бота',
-                        params: { name: 'Мой Бот' }
-                    }
-                ]
-            },
-            'getMyName': {
-                name: 'getMyName',
-                description: 'Получить имя бота',
-                category: 'commands',
-                parameters: {
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Получить имя бота',
-                        params: {}
-                    }
-                ]
-            },
-            'setMyDescription': {
-                name: 'setMyDescription',
-                description: 'Установить описание бота',
-                category: 'commands',
-                parameters: {
-                    'description': { type: 'string', required: false, description: 'Описание' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Установить описание бота',
-                        params: { description: 'Это полезный бот' }
-                    }
-                ]
-            },
-            'getMyDescription': {
-                name: 'getMyDescription',
-                description: 'Получить описание бота',
-                category: 'commands',
-                parameters: {
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Получить описание бота',
-                        params: {}
-                    }
-                ]
-            },
-            'setMyShortDescription': {
-                name: 'setMyShortDescription',
-                description: 'Установить краткое описание бота',
-                category: 'commands',
-                parameters: {
-                    'short_description': { type: 'string', required: false, description: 'Краткое описание' },
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Установить краткое описание бота',
-                        params: { short_description: 'Полезный бот' }
-                    }
-                ]
-            },
-            'getMyShortDescription': {
-                name: 'getMyShortDescription',
-                description: 'Получить краткое описание бота',
-                category: 'commands',
-                parameters: {
-                    'language_code': { type: 'string', required: false, description: 'Код языка' }
-                },
-                examples: [
-                    {
-                        description: 'Получить краткое описание бота',
-                        params: {}
-                    }
-                ]
-            },
-            'setChatMenuButton': {
-                name: 'setChatMenuButton',
-                description: 'Установить кнопку меню чата',
-                category: 'commands',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'menu_button': { type: 'object', required: false, description: 'Кнопка меню' }
-                },
-                examples: [
-                    {
-                        description: 'Установить кнопку меню',
-                        params: { menu_button: '{"type": "commands"}' }
-                    }
-                ]
-            },
-            'getChatMenuButton': {
-                name: 'getChatMenuButton',
-                description: 'Получить кнопку меню чата',
-                category: 'commands',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' }
-                },
-                examples: [
-                    {
-                        description: 'Получить кнопку меню',
-                        params: {}
-                    }
-                ]
-            },
-
-            // Ответы на callback
-            'answerCallbackQuery': {
-                name: 'answerCallbackQuery',
-                description: 'Ответить на callback запрос',
-                category: 'callbacks',
-                parameters: {
-                    'callback_query_id': { type: 'string', required: true, description: 'ID callback запроса' },
-                    'text': { type: 'string', required: false, description: 'Текст ответа' },
-                    'show_alert': { type: 'boolean', required: false, description: 'Показать как alert' },
-                    'url': { type: 'string', required: false, description: 'URL для открытия' },
-                    'cache_time': { type: 'integer', required: false, description: 'Время кеширования' }
-                },
-                examples: [
-                    {
-                        description: 'Ответить на callback',
-                        params: { callback_query_id: '123456789', text: 'Ответ получен!' }
-                    }
-                ]
-            },
-
-            // Действия в чате
-            'sendChatAction': {
-                name: 'sendChatAction',
-                description: 'Отправить действие в чате',
-                category: 'actions',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'action': { type: 'string', required: true, description: 'Действие' },
-                    'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
-                    'business_connection_id': { type: 'string', required: false, description: 'ID бизнес-соединения' }
-                },
-                examples: [
-                    {
-                        description: 'Показать действие "печатает"',
-                        params: { chat_id: '123456789', action: 'typing' }
-                    }
-                ]
-            },
-
-            // Файлы
-            'getFile': {
-                name: 'getFile',
-                description: 'Получить информацию о файле',
-                category: 'files',
-                parameters: {
-                    'file_id': { type: 'string', required: true, description: 'ID файла' }
-                },
-                examples: [
-                    {
-                        description: 'Получить информацию о файле',
-                        params: { file_id: 'ABC123' }
-                    }
-                ]
-            },
-            'getUserProfilePhotos': {
-                name: 'getUserProfilePhotos',
-                description: 'Получить фото профиля пользователя',
-                category: 'files',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'offset': { type: 'integer', required: false, description: 'Смещение' },
-                    'limit': { type: 'integer', required: false, description: 'Лимит' }
-                },
-                examples: [
-                    {
-                        description: 'Получить фото профиля',
-                        params: { user_id: '123456789' }
-                    }
-                ]
-            },
-            'downloadFile': {
-                name: 'downloadFile',
-                description: 'Скачать файл с сервера Telegram',
-                category: 'files',
-                parameters: {
-                    'file_path': { type: 'string', required: true, description: 'Путь к файлу (полученный из getFile)' }
-                },
-                examples: [
-                    {
-                        description: 'Скачать файл по пути',
-                        params: { file_path: 'photos/file123.jpg' }
-                    }
-                ]
-            },
-
-            // Игры
-            'sendGame': {
-                name: 'sendGame',
-                description: 'Отправить игру',
-                category: 'games',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'game_short_name': { type: 'string', required: true, description: 'Короткое имя игры' },
-                    'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
-                    'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
-                    'protect_content': { type: 'boolean', required: false, description: 'Защитить контент' },
-                    'reply_parameters': { type: 'object', required: false, description: 'Параметры ответа' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Отправить игру',
-                        params: { chat_id: '123456789', game_short_name: 'mygame' }
-                    }
-                ]
-            },
-            'setGameScore': {
-                name: 'setGameScore',
-                description: 'Установить счет в игре',
-                category: 'games',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'score': { type: 'integer', required: true, description: 'Счет' },
-                    'force': { type: 'boolean', required: false, description: 'Принудительно' },
-                    'disable_edit_message': { type: 'boolean', required: false, description: 'Отключить редактирование сообщения' },
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' }
-                },
-                examples: [
-                    {
-                        description: 'Установить счет в игре',
-                        params: { user_id: '123456789', score: '100', chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-            'getGameHighScores': {
-                name: 'getGameHighScores',
-                description: 'Получить рекорды в игре',
-                category: 'games',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' }
-                },
-                examples: [
-                    {
-                        description: 'Получить рекорды в игре',
-                        params: { user_id: '123456789', chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-
-            // Верификация
-            'verifyUser': {
-                name: 'verifyUser',
-                description: 'Верифицировать пользователя',
-                category: 'verification',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'custom_description': { type: 'string', required: false, description: 'Кастомное описание' }
-                },
-                examples: [
-                    {
-                        description: 'Верифицировать пользователя',
-                        params: { user_id: '123456789', custom_description: 'Проверенный пользователь' }
-                    }
-                ]
-            },
-            'verifyChat': {
-                name: 'verifyChat',
-                description: 'Верифицировать чат',
-                category: 'verification',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
-                    'custom_description': { type: 'string', required: false, description: 'Кастомное описание' }
-                },
-                examples: [
-                    {
-                        description: 'Верифицировать чат',
-                        params: { chat_id: '123456789', custom_description: 'Проверенный чат' }
-                    }
-                ]
-            },
-            'removeUserVerification': {
-                name: 'removeUserVerification',
-                description: 'Удалить верификацию пользователя',
-                category: 'verification',
-                parameters: {
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить верификацию пользователя',
-                        params: { user_id: '123456789' }
-                    }
-                ]
-            },
-            'removeChatVerification': {
-                name: 'removeChatVerification',
-                description: 'Удалить верификацию чата',
-                category: 'verification',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить верификацию чата',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            }
-        };
-
-        const categories = {
-            'basic': { name: 'Основные', icon: '⚙️', description: 'Базовые методы для работы с ботом и обновлениями' },
-            'messages': { name: 'Сообщения', icon: '💬', description: 'Отправка, редактирование и удаление сообщений' },
-            'media': { name: 'Медиа', icon: '📷', description: 'Отправка фото, видео, аудио и документов' },
-            'location': { name: 'Локация', icon: '📍', description: 'Отправка местоположения и заведений' },
-            'contact': { name: 'Контакты', icon: '👤', description: 'Отправка контактной информации' },
-            'polls': { name: 'Опросы', icon: '📊', description: 'Создание и управление опросами' },
-            'games': { name: 'Игры', icon: '🎮', description: 'Отправка игр и управление счетами' },
-            'chats': { name: 'Чаты', icon: '💭', description: 'Управление чатами и участниками' },
-            'stickers': { name: 'Стикеры', icon: '🏷️', description: 'Работа со стикерами и наборами стикеров' },
-            'inline': { name: 'Inline', icon: '🔍', description: 'Inline режим и ответы на запросы' },
-            'payments': { name: 'Платежи', icon: '💳', description: 'Отправка счетов и обработка платежей' },
-            'stars': { name: 'Telegram Stars', icon: '⭐', description: 'Работа с Telegram Stars' },
-            'gifts': { name: 'Подарки', icon: '🎁', description: 'Отправка подарков' },
-            'business': { name: 'Бизнес', icon: '💼', description: 'Управление бизнес-аккаунтами' },
-            'stories': { name: 'Сторис', icon: '📱', description: 'Публикация и управление сторис' },
-            'checklists': { name: 'Чеклисты', icon: '✅', description: 'Работа с чеклистами' },
-            'commands': { name: 'Команды', icon: '📜', description: 'Управление командами бота' },
-            'callbacks': { name: 'Callbacks', icon: '🔔', description: 'Ответы на callback запросы' },
-            'actions': { name: 'Действия', icon: '⚡', description: 'Отправка действий в чат' },
-            'files': { name: 'Файлы', icon: '📁', description: 'Работа с файлами и их скачивание' },
-            'verification': { name: 'Верификация', icon: '✅', description: 'Верификация пользователей и чатов' }
-        };
-
-        let selectedMethod = null;
-
-        // Функции для работы с куки
-        function setCookie(name, value, days) {
-            const expires = new Date();
-            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = name + '=' + value + ';expires=' + expires.toUTCString();
-        }
-
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-        function initializeApp() {
-            // Загрузка сохраненного токена
-            const savedToken = getCookie('telegram_bot_token');
-            if (savedToken) {
-                document.getElementById('botToken').value = savedToken;
-            }
-            
-            renderMethods();
-            renderCategories();
-            setupSearch();
-        }
-
-        function renderMethods() {
-            const grid = document.getElementById('methodGrid');
-            grid.innerHTML = '';
-            
-            Object.values(telegramApiMethods).forEach(method => {
-                const card = document.createElement('div');
-                card.className = 'method-card';
-                card.onclick = () => selectMethod(method.name);
-                card.innerHTML = `
-                    <div class="method-name">${method.name}</div>
-                    <div class="method-description">${method.description}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function renderCategories() {
-            const grid = document.getElementById('categoryGrid');
-            grid.innerHTML = '';
-            
-            Object.entries(categories).forEach(([key, category]) => {
-                const card = document.createElement('div');
-                card.className = 'category-card';
-                card.onclick = () => filterByCategory(key);
-                card.innerHTML = `
-                    <div class="category-icon">${category.icon}</div>
-                    <div class="category-name">${category.name}</div>
-                    <div class="category-description">${category.description}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function setupSearch() {
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                filterMethods(query);
-            });
-        }
-
-        function filterMethods(query) {
-            const cards = document.querySelectorAll('.method-card');
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(query) ? 'block' : 'none';
-            });
-        }
-
-        function filterByCategory(category) {
-            const cards = document.querySelectorAll('.method-card');
-            cards.forEach(card => {
-                const methodName = card.querySelector('.method-name').textContent;
-                const method = telegramApiMethods[methodName];
-                if (method && method.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            switchTab('methods');
-        }
-
-        function selectMethod(methodName) {
-            selectedMethod = methodName;
-            
-            // Сохранение токена при выборе метода
-            const botToken = document.getElementById('botToken').value.trim();
-            if (botToken) {
-                setCookie('telegram_bot_token', botToken, 30); // Сохраняем на 30 дней
-            }
-            
-            // Обновить выделение карточки
-            document.querySelectorAll('.method-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            
-            // Показать секцию параметров
-            renderParameters(methodName);
-            document.getElementById('parametersSection').classList.add('active');
-            
-            // Показать/скрыть информацию о файлах
-            const fileInfoSection = document.getElementById('fileInfoSection');
-            if (methodName === 'getFile' || methodName === 'downloadFile') {
-                fileInfoSection.style.display = 'block';
-            } else {
-                fileInfoSection.style.display = 'none';
-            }
-            
-            // Показать/скрыть информацию о стикерах
-            const stickerInfoSection = document.getElementById('stickerInfoSection');
-            if (methodName === 'createNewStickerSet' || methodName === 'addStickerToSet' || methodName === 'uploadStickerFile') {
-                stickerInfoSection.style.display = 'block';
-            } else {
-                stickerInfoSection.style.display = 'none';
-            }
-        }
-
-        function renderParameters(methodName) {
-            const method = telegramApiMethods[methodName];
-            const container = document.getElementById('parametersContainer');
-            container.innerHTML = '';
-            
-            Object.entries(method.parameters).forEach(([paramName, paramInfo]) => {
-                const group = document.createElement('div');
-                group.className = 'parameter-group';
-                group.innerHTML = `
-                    <label class="parameter-label">
-                        ${paramName} ${paramInfo.required ? '<span class="required">*</span>' : ''}
-                    </label>
-                    <input type="text" class="parameter-input" id="param_${paramName}" 
-                           placeholder="${paramInfo.description}">
-                    <div class="parameter-help">${paramInfo.description}</div>
-                `;
-                container.appendChild(group);
-            });
-        }
-
-        function generateAndOpen() {
-            const botToken = document.getElementById('botToken').value.trim();
-            if (!botToken) {
-                alert('Пожалуйста, введите Bot Token');
-                return;
-            }
-            
-            // Сохранение токена
-            setCookie('telegram_bot_token', botToken, 30);
-            
-            if (!selectedMethod) {
-                alert('Пожалуйста, выберите метод API');
-                return;
-            }
-            
-            const method = telegramApiMethods[selectedMethod];
-            const params = {};
-            
-            // Собрать параметры
-            Object.keys(method.parameters).forEach(paramName => {
-                const input = document.getElementById(`param_${paramName}`);
-                if (input && input.value.trim()) {
-                    params[paramName] = input.value.trim();
-                }
-            });
-            
-            // Проверить обязательные параметры
-            const missingParams = Object.entries(method.parameters)
-                .filter(([name, info]) => info.required && !params[name])
-                .map(([name]) => name);
-            
-            if (missingParams.length > 0) {
-                alert(`Отсутствуют обязательные параметры: ${missingParams.join(', ')}`);
-                return;
-            }
-            
-            // Сгенерировать URL
-            let fullUrl;
-            if (selectedMethod === 'downloadFile') {
-                // Особый формат для скачивания файлов
-                fullUrl = `https://api.telegram.org/file/bot${botToken}/${params.file_path}`;
-            } else {
-                // Стандартный формат для API методов
-                const baseUrl = `https://api.telegram.org/bot${botToken}/${selectedMethod}`;
-                const queryString = new URLSearchParams(params).toString();
-                fullUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-            }
-            
-            // Показать результат
-            document.getElementById('resultUrl').textContent = fullUrl;
-            document.getElementById('resultSection').classList.add('active');
-            
-            // Показать примеры
-            renderExamples(method);
-            
-            // Автоматически открыть ссылку
-            window.open(fullUrl, '_blank');
-            
-            // Показать уведомление
-            showNotification();
-        }
-
-        function renderExamples(method) {
-            const container = document.getElementById('examplesContainer');
-            container.innerHTML = '';
-            
-            method.examples.forEach(example => {
-                const exampleDiv = document.createElement('div');
-                exampleDiv.className = 'example-item';
-                exampleDiv.innerHTML = `
-                    <strong>${example.description}</strong><br>
-                    <small>Параметры: ${JSON.stringify(example.params, null, 2)}</small>
-                `;
-                container.appendChild(exampleDiv);
-            });
-        }
-
-        function copyToClipboard() {
-            const urlText = document.getElementById('resultUrl').textContent;
-            navigator.clipboard.writeText(urlText).then(() => {
-                alert('Ссылка скопирована в буфер обмена!');
-            });
-        }
-
-        function openInNewTab() {
-            const url = document.getElementById('resultUrl').textContent;
-            window.open(url, '_blank');
-        }
-
-        function switchTab(tabName) {
-            // Скрыть все вкладки
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            // Показать выбранную вкладку
-            if (tabName === 'methods') {
-                document.querySelectorAll('.tab')[0].classList.add('active');
-                document.getElementById('methods-tab').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab')[1].classList.add('active');
-                document.getElementById('categories-tab').classList.add('active');
-            }
-        }
-
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Инициализация приложения
-        document.addEventListener('DOMContentLoaded', initializeApp);
-    </script>
-</body>
-</html>
+                description: 'Установить список эмодзи для стик
