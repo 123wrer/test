@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Полный Telegram Bot API Генератор с поддержкой файлов</title>
     <style>
-        /* Все стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -1232,7 +1231,539 @@
                     }
                 ]
             },
-            // Стикеры
+            // Редактирование сообщений (теперь в категории messages)
+            'editMessageText': {
+                name: 'editMessageText',
+                description: 'Редактировать текст сообщения',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'text': { type: 'string', required: true, description: 'Новый текст' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
+                    'entities': { type: 'array', required: false, description: 'Список entities' },
+                    'link_preview_options': { type: 'object', required: false, description: 'Опции предпросмотра ссылок' },
+                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
+                },
+                examples: [
+                    {
+                        description: 'Редактировать текст сообщения',
+                        params: { chat_id: '123456789', message_id: '789', text: 'Исправленный текст' }
+                    }
+                ]
+            },
+            'editMessageCaption': {
+                name: 'editMessageCaption',
+                description: 'Редактировать подпись к медиа',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'caption': { type: 'string', required: false, description: 'Новая подпись' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
+                    'caption_entities': { type: 'array', required: false, description: 'Entities подписи' },
+                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
+                },
+                examples: [
+                    {
+                        description: 'Редактировать подпись к фото',
+                        params: { chat_id: '123456789', message_id: '789', caption: 'Новая подпись к фото' }
+                    }
+                ]
+            },
+            'editMessageMedia': {
+                name: 'editMessageMedia',
+                description: 'Редактировать медиа в сообщении',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'media': { type: 'object', required: true, description: 'Новый медиа объект' },
+                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
+                },
+                examples: [
+                    {
+                        description: 'Заменить фото в сообщении',
+                        params: { chat_id: '123456789', message_id: '789', media: '{"type": "photo", "media": "https://example.com/new_photo.jpg"}' }
+                    }
+                ]
+            },
+            'editMessageLiveLocation': {
+                name: 'editMessageLiveLocation',
+                description: 'Редактировать живое местоположение',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'latitude': { type: 'float', required: true, description: 'Широта' },
+                    'longitude': { type: 'float', required: true, description: 'Долгота' },
+                    'horizontal_accuracy': { type: 'float', required: false, description: 'Горизонтальная точность' },
+                    'heading': { type: 'integer', required: false, description: 'Направление' },
+                    'proximity_alert_radius': { type: 'integer', required: false, description: 'Радиус оповещения' },
+                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
+                },
+                examples: [
+                    {
+                        description: 'Обновить живое местоположение',
+                        params: { chat_id: '123456789', message_id: '789', latitude: '55.7560', longitude: '37.6174' }
+                    }
+                ]
+            },
+            'editMessageReplyMarkup': {
+                name: 'editMessageReplyMarkup',
+                description: 'Редактировать клавиатуру сообщения',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'reply_markup': { type: 'object', required: false, description: 'Новая клавиатура' }
+                },
+                examples: [
+                    {
+                        description: 'Изменить клавиатуру сообщения',
+                        params: { chat_id: '123456789', message_id: '789', reply_markup: '{"inline_keyboard": [[{"text": "Новая кнопка", "callback_data": "new"}]]}' }
+                    }
+                ]
+            },
+            'stopMessageLiveLocation': {
+                name: 'stopMessageLiveLocation',
+                description: 'Остановить трансляцию местоположения',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
+                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
+                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
+                },
+                examples: [
+                    {
+                        description: 'Остановить трансляцию местоположения',
+                        params: { chat_id: '123456789', message_id: '789' }
+                    }
+                ]
+            },
+            // Удаление сообщений (теперь в категории messages)
+            'deleteMessage': {
+                name: 'deleteMessage',
+                description: 'Удалить сообщение',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
+                    'message_id': { type: 'integer', required: true, description: 'ID сообщения' }
+                },
+                examples: [
+                    {
+                        description: 'Удалить сообщение',
+                        params: { chat_id: '123456789', message_id: '789' }
+                    }
+                ]
+            },
+            'deleteMessages': {
+                name: 'deleteMessages',
+                description: 'Удалить несколько сообщений',
+                category: 'messages',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
+                    'message_ids': { type: 'array', required: true, description: 'ID сообщений' }
+                },
+                examples: [
+                    {
+                        description: 'Удалить несколько сообщений',
+                        params: { chat_id: '123456789', message_ids: '[789, 790, 791]' }
+                    }
+                ]
+            },
+            // Чаты и группы
+            'getChat': {
+                name: 'getChat',
+                description: 'Получить информацию о чате',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Получить информацию о чате',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'getChatAdministrators': {
+                name: 'getChatAdministrators',
+                description: 'Получить администраторов чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Получить список администраторов',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'getChatMemberCount': {
+                name: 'getChatMemberCount',
+                description: 'Получить количество участников чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Получить количество участников',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'getChatMember': {
+                name: 'getChatMember',
+                description: 'Получить информацию об участнике чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
+                },
+                examples: [
+                    {
+                        description: 'Получить информацию об участнике',
+                        params: { chat_id: '123456789', user_id: '987654321' }
+                    }
+                ]
+            },
+            'setChatAdministratorCustomTitle': {
+                name: 'setChatAdministratorCustomTitle',
+                description: 'Установить кастомный заголовок администратора',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
+                    'custom_title': { type: 'string', required: true, description: 'Кастомный заголовок' }
+                },
+                examples: [
+                    {
+                        description: 'Установить заголовок администратора',
+                        params: { chat_id: '123456789', user_id: '987654321', custom_title: 'Модератор' }
+                    }
+                ]
+            },
+            'banChatMember': {
+                name: 'banChatMember',
+                description: 'Забанить участника чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
+                    'until_date': { type: 'integer', required: false, description: 'Дата разбана' },
+                    'revoke_messages': { type: 'boolean', required: false, description: 'Удалить сообщения' }
+                },
+                examples: [
+                    {
+                        description: 'Забанить участника',
+                        params: { chat_id: '123456789', user_id: '987654321' }
+                    }
+                ]
+            },
+            'unbanChatMember': {
+                name: 'unbanChatMember',
+                description: 'Разбанить участника чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
+                    'only_if_banned': { type: 'boolean', required: false, description: 'Только если забанен' }
+                },
+                examples: [
+                    {
+                        description: 'Разбанить участника',
+                        params: { chat_id: '123456789', user_id: '987654321' }
+                    }
+                ]
+            },
+            'restrictChatMember': {
+                name: 'restrictChatMember',
+                description: 'Ограничить участника чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
+                    'permissions': { type: 'object', required: true, description: 'Права доступа' },
+                    'use_independent_chat_permissions': { type: 'boolean', required: false, description: 'Использовать независимые права' },
+                    'until_date': { type: 'integer', required: false, description: 'Дата окончания ограничений' }
+                },
+                examples: [
+                    {
+                        description: 'Ограничить права участника',
+                        params: { chat_id: '123456789', user_id: '987654321', permissions: '{"can_send_messages": false}' }
+                    }
+                ]
+            },
+            'promoteChatMember': {
+                name: 'promoteChatMember',
+                description: 'Повысить участника чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
+                    'is_anonymous': { type: 'boolean', required: false, description: 'Анонимный администратор' },
+                    'can_manage_chat': { type: 'boolean', required: false, description: 'Может управлять чатом' },
+                    'can_post_messages': { type: 'boolean', required: false, description: 'Может публиковать сообщения' },
+                    'can_edit_messages': { type: 'boolean', required: false, description: 'Может редактировать сообщения' },
+                    'can_delete_messages': { type: 'boolean', required: false, description: 'Может удалять сообщения' },
+                    'can_manage_video_chats': { type: 'boolean', required: false, description: 'Может управлять видеочатами' },
+                    'can_restrict_members': { type: 'boolean', required: false, description: 'Может ограничивать участников' },
+                    'can_promote_members': { type: 'boolean', required: false, description: 'Может повышать участников' },
+                    'can_change_info': { type: 'boolean', required: false, description: 'Может изменять информацию' },
+                    'can_invite_users': { type: 'boolean', required: false, description: 'Может приглашать пользователей' },
+                    'can_pin_messages': { type: 'boolean', required: false, description: 'Может закреплять сообщения' },
+                    'can_manage_topics': { type: 'boolean', required: false, description: 'Может управлять темами' },
+                    'can_post_stories': { type: 'boolean', required: false, description: 'Может публиковать сторис' },
+                    'can_edit_stories': { type: 'boolean', required: false, description: 'Может редактировать сторис' },
+                    'can_delete_stories': { type: 'boolean', required: false, description: 'Может удалять сторис' }
+                },
+                examples: [
+                    {
+                        description: 'Сделать участника администратором',
+                        params: { chat_id: '123456789', user_id: '987654321', can_manage_chat: true, can_delete_messages: true }
+                    }
+                ]
+            },
+            'setChatPermissions': {
+                name: 'setChatPermissions',
+                description: 'Установить права чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'permissions': { type: 'object', required: true, description: 'Права доступа' },
+                    'use_independent_chat_permissions': { type: 'boolean', required: false, description: 'Использовать независимые права' }
+                },
+                examples: [
+                    {
+                        description: 'Установить права для чата',
+                        params: { chat_id: '123456789', permissions: '{"can_send_messages": true, "can_send_media": false}' }
+                    }
+                ]
+            },
+            'exportChatInviteLink': {
+                name: 'exportChatInviteLink',
+                description: 'Экспортировать ссылку-приглашение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Получить ссылку-приглашение',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'createChatInviteLink': {
+                name: 'createChatInviteLink',
+                description: 'Создать ссылку-приглашение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'name': { type: 'string', required: false, description: 'Название ссылки' },
+                    'expire_date': { type: 'integer', required: false, description: 'Дата истечения' },
+                    'member_limit': { type: 'integer', required: false, description: 'Лимит участников' },
+                    'creates_join_request': { type: 'boolean', required: false, description: 'Создает запрос на вступление' }
+                },
+                examples: [
+                    {
+                        description: 'Создать новую ссылку-приглашение',
+                        params: { chat_id: '123456789', name: 'Приглашение для друзей', member_limit: '10' }
+                    }
+                ]
+            },
+            'editChatInviteLink': {
+                name: 'editChatInviteLink',
+                description: 'Редактировать ссылку-приглашение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'invite_link': { type: 'string', required: true, description: 'Ссылка-приглашение' },
+                    'name': { type: 'string', required: false, description: 'Название ссылки' },
+                    'expire_date': { type: 'integer', required: false, description: 'Дата истечения' },
+                    'member_limit': { type: 'integer', required: false, description: 'Лимит участников' },
+                    'creates_join_request': { type: 'boolean', required: false, description: 'Создает запрос на вступление' }
+                },
+                examples: [
+                    {
+                        description: 'Редактировать существующую ссылку',
+                        params: { chat_id: '123456789', invite_link: 'https://t.me/joinchat/ABC123', member_limit: '20' }
+                    }
+                ]
+            },
+            'revokeChatInviteLink': {
+                name: 'revokeChatInviteLink',
+                description: 'Отозвать ссылку-приглашение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'invite_link': { type: 'string', required: true, description: 'Ссылка-приглашение' }
+                },
+                examples: [
+                    {
+                        description: 'Отозвать ссылку-приглашение',
+                        params: { chat_id: '123456789', invite_link: 'https://t.me/joinchat/ABC123' }
+                    }
+                ]
+            },
+            'approveChatJoinRequest': {
+                name: 'approveChatJoinRequest',
+                description: 'Одобрить запрос на вступление',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
+                },
+                examples: [
+                    {
+                        description: 'Одобрить запрос на вступление',
+                        params: { chat_id: '123456789', user_id: '987654321' }
+                    }
+                ]
+            },
+            'declineChatJoinRequest': {
+                name: 'declineChatJoinRequest',
+                description: 'Отклонить запрос на вступление',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
+                },
+                examples: [
+                    {
+                        description: 'Отклонить запрос на вступление',
+                        params: { chat_id: '123456789', user_id: '987654321' }
+                    }
+                ]
+            },
+            'setChatPhoto': {
+                name: 'setChatPhoto',
+                description: 'Установить фото чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'photo': { type: 'string', required: true, description: 'Файл фото' }
+                },
+                examples: [
+                    {
+                        description: 'Установить фото для чата',
+                        params: { chat_id: '123456789', photo: 'https://example.com/chat_photo.jpg' }
+                    }
+                ]
+            },
+            'deleteChatPhoto': {
+                name: 'deleteChatPhoto',
+                description: 'Удалить фото чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Удалить фото чата',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'setChatTitle': {
+                name: 'setChatTitle',
+                description: 'Установить название чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'title': { type: 'string', required: true, description: 'Название чата' }
+                },
+                examples: [
+                    {
+                        description: 'Изменить название чата',
+                        params: { chat_id: '123456789', title: 'Новый название чата' }
+                    }
+                ]
+            },
+            'setChatDescription': {
+                name: 'setChatDescription',
+                description: 'Установить описание чата',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'description': { type: 'string', required: false, description: 'Описание чата' }
+                },
+                examples: [
+                    {
+                        description: 'Установить описание чата',
+                        params: { chat_id: '123456789', description: 'Это наш общий чат' }
+                    }
+                ]
+            },
+            'pinChatMessage': {
+                name: 'pinChatMessage',
+                description: 'Закрепить сообщение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'message_id': { type: 'integer', required: true, description: 'ID сообщения' },
+                    'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' }
+                },
+                examples: [
+                    {
+                        description: 'Закрепить сообщение',
+                        params: { chat_id: '123456789', message_id: '789' }
+                    }
+                ]
+            },
+            'unpinChatMessage': {
+                name: 'unpinChatMessage',
+                description: 'Открепить сообщение',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
+                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' }
+                },
+                examples: [
+                    {
+                        description: 'Открепить конкретное сообщение',
+                        params: { chat_id: '123456789', message_id: '789' }
+                    }
+                ]
+            },
+            'unpinAllChatMessages': {
+                name: 'unpinAllChatMessages',
+                description: 'Открепить все сообщения',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Открепить все сообщения в чате',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            'leaveChat': {
+                name: 'leaveChat',
+                description: 'Покинуть чат',
+                category: 'chats',
+                parameters: {
+                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
+                },
+                examples: [
+                    {
+                        description: 'Покинуть чат',
+                        params: { chat_id: '123456789' }
+                    }
+                ]
+            },
+            // Стикеры и GIF
             'sendSticker': {
                 name: 'sendSticker',
                 description: 'Отправить стикер',
@@ -1379,6 +1910,21 @@
                         params: { sticker: 'ABC123' }
                     }
                 ]
+            },
+            'setStickerEmojiList': {
+                name: 'setStickerEmojiList',
+                description: 'Установить список эмодзи для стикера',
+                category: 'stickers',
+                parameters: {
+                    'sticker': { type: 'string', required: true, description: 'FileID стикера' },
+                    'emoji_list': { type: 'array', required: true, description: 'Список эмодзи' }
+                },
+                examples: [
+                    {
+                        description: 'Установить эмодзи для стикера',
+                        params: { sticker: 'ABC123', emoji_list: '["😀", "😃"]' }
+                    }
+                ]
             }
         };
 
@@ -1391,7 +1937,8 @@
             'contact': { name: 'Контакты', icon: '👤', description: 'Отправка контактной информации' },
             'polls': { name: 'Опросы', icon: '📊', description: 'Создание и управление опросами' },
             'games': { name: 'Игры', icon: '🎮', description: 'Отправка игровых элементов' },
-            'stickers': { name: 'Стикеры', icon: '🏷️', description: 'Создание и управление стикерами' }
+            'stickers': { name: 'Стикеры', icon: '🏷️', description: 'Создание и управление стикерами' },
+            'chats': { name: 'Чаты', icon: '👥', description: 'Управление чатами и участниками' }
         };
 
         // Текущий выбранный метод
@@ -1588,7 +2135,7 @@
                         optionElement.textContent = option;
                         inputElement.appendChild(optionElement);
                     });
-                } else if (param.type === 'stickers') {
+                } else if (param.type === 'stickers' || param.type === 'sticker') {
                     // Специальный интерфейс для стикеров
                     inputElement = document.createElement('div');
                     inputElement.className = 'stickers-container';
@@ -1757,7 +2304,7 @@
                         // Для чекбоксов
                         const checkbox = element.querySelector('.parameter-checkbox');
                         params[paramKey] = checkbox.checked;
-                    } else if (param.type === 'stickers') {
+                    } else if (param.type === 'stickers' || param.type === 'sticker') {
                         // Для стикеров - собрать JSON массив
                         const stickerItems = element.querySelectorAll('.sticker-item');
                         const stickersArray = [];
