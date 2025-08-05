@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Полный Telegram Bot API Генератор с поддержкой файлов</title>
     <style>
+        /* Все стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -26,28 +25,23 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-
         .header {
             background: linear-gradient(135deg, #0088cc, #00aaff);
             color: white;
             padding: 30px;
             text-align: center;
         }
-
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
         }
-
         .header p {
             font-size: 1.1em;
             opacity: 0.9;
         }
-
         .main-content {
             padding: 30px;
         }
-
         .setup-section {
             background: #e8f5e8;
             border: 2px solid #4caf50;
@@ -55,24 +49,20 @@
             padding: 20px;
             margin-bottom: 30px;
         }
-
         .setup-section h3 {
             color: #2e7d32;
             margin-bottom: 15px;
         }
-
         .setup-steps {
             list-style: none;
             counter-reset: step-counter;
         }
-
         .setup-steps li {
             counter-increment: step-counter;
             margin-bottom: 10px;
             padding-left: 30px;
             position: relative;
         }
-
         .setup-steps li::before {
             content: counter(step-counter);
             position: absolute;
@@ -89,11 +79,9 @@
             font-size: 12px;
             font-weight: bold;
         }
-
         .search-section {
             margin-bottom: 30px;
         }
-
         .search-box {
             width: 100%;
             padding: 15px;
@@ -103,11 +91,9 @@
             outline: none;
             transition: border-color 0.3s;
         }
-
         .search-box:focus {
             border-color: #0088cc;
         }
-
         .method-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -119,7 +105,6 @@
             border: 1px solid #eee;
             border-radius: 10px;
         }
-
         .method-card {
             border: 2px solid #eee;
             border-radius: 10px;
@@ -128,30 +113,25 @@
             transition: all 0.3s;
             background: #f9f9f9;
         }
-
         .method-card:hover {
             border-color: #0088cc;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
         .method-card.selected {
             border-color: #0088cc;
             background: #e6f7ff;
         }
-
         .method-name {
             font-weight: bold;
             color: #0088cc;
             font-size: 1.1em;
             margin-bottom: 8px;
         }
-
         .method-description {
             color: #666;
             font-size: 0.85em;
         }
-
         .parameters-section {
             background: #f8f9fa;
             border-radius: 10px;
@@ -159,22 +139,18 @@
             margin-bottom: 30px;
             display: none;
         }
-
         .parameters-section.active {
             display: block;
         }
-
         .parameter-group {
             margin-bottom: 20px;
         }
-
         .parameter-label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
             color: #333;
         }
-
         .parameter-input {
             width: 100%;
             padding: 10px;
@@ -182,18 +158,15 @@
             border-radius: 5px;
             font-size: 14px;
         }
-
         .parameter-help {
             font-size: 0.8em;
             color: #666;
             margin-top: 5px;
         }
-
         .generate-section {
             text-align: center;
             margin-bottom: 30px;
         }
-
         .generate-btn {
             background: linear-gradient(135deg, #0088cc, #00aaff);
             color: white;
@@ -204,22 +177,18 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
-
         .generate-btn:hover {
             transform: scale(1.05);
         }
-
         .result-section {
             background: #f8f9fa;
             border-radius: 10px;
             padding: 25px;
             display: none;
         }
-
         .result-section.active {
             display: block;
         }
-
         .result-url {
             background: white;
             border: 1px solid #ddd;
@@ -229,7 +198,6 @@
             word-break: break-all;
             margin-bottom: 15px;
         }
-
         .copy-btn {
             background: #28a745;
             color: white;
@@ -239,7 +207,6 @@
             cursor: pointer;
             margin-right: 10px;
         }
-
         .examples-section {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -247,7 +214,6 @@
             padding: 20px;
             margin-top: 20px;
         }
-
         .example-item {
             background: white;
             border-radius: 5px;
@@ -255,41 +221,34 @@
             margin-bottom: 10px;
             border-left: 4px solid #0088cc;
         }
-
         .tabs {
             display: flex;
             margin-bottom: 20px;
             border-bottom: 2px solid #eee;
         }
-
         .tab {
             padding: 10px 20px;
             cursor: pointer;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
         }
-
         .tab.active {
             border-bottom-color: #0088cc;
             color: #0088cc;
             font-weight: bold;
         }
-
         .tab-content {
             display: none;
         }
-
         .tab-content.active {
             display: block;
         }
-
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin-bottom: 20px;
         }
-
         .category-card {
             border: 2px solid #eee;
             border-radius: 10px;
@@ -299,29 +258,24 @@
             background: #f9f9f9;
             text-align: center;
         }
-
         .category-card:hover {
             border-color: #0088cc;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
         .category-icon {
             font-size: 2em;
             margin-bottom: 10px;
         }
-
         .category-name {
             font-weight: bold;
             color: #0088cc;
             margin-bottom: 5px;
         }
-
         .category-description {
             color: #666;
             font-size: 0.9em;
         }
-
         .notification {
             position: fixed;
             top: 20px;
@@ -335,15 +289,12 @@
             transform: translateX(400px);
             transition: transform 0.3s ease;
         }
-
         .notification.show {
             transform: translateX(0);
         }
-
         .required {
             color: #e74c3c;
         }
-
         .file-info {
             background: #e3f2fd;
             border: 1px solid #90caf9;
@@ -351,12 +302,10 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .file-info h4 {
             color: #1976d2;
             margin-bottom: 10px;
         }
-
         .file-steps {
             background: #f1f8e9;
             border: 1px solid #c5e1a5;
@@ -364,20 +313,16 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .file-steps h4 {
             color: #558b2f;
             margin-bottom: 10px;
         }
-
         .file-steps ol {
             margin-left: 20px;
         }
-
         .file-steps li {
             margin-bottom: 8px;
         }
-
         .sticker-info {
             background: #fff8e1;
             border: 1px solid #ffcc02;
@@ -385,12 +330,10 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .sticker-info h4 {
             color: #ff8f00;
             margin-bottom: 10px;
         }
-
         .sticker-types {
             background: #f3e5f5;
             border: 1px solid #ce93d8;
@@ -398,29 +341,24 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .sticker-types h4 {
             color: #8e24aa;
             margin-bottom: 10px;
         }
-
         .sticker-types table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-
         .sticker-types th, .sticker-types td {
             border: 1px solid #e1bee7;
             padding: 8px;
             text-align: left;
         }
-
         .sticker-types th {
             background: #e1bee7;
             color: #4a148c;
         }
-
         .token-save {
             background: #e8f5e9;
             border: 1px solid #a5d6a7;
@@ -428,12 +366,10 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .token-save h4 {
             color: #2e7d32;
             margin-bottom: 10px;
         }
-
         .json-example {
             background: #263238;
             color: #eeffff;
@@ -444,7 +380,6 @@
             font-size: 14px;
             overflow-x: auto;
         }
-
         .error-box {
             background: #ffebee;
             border: 1px solid #ef9a9a;
@@ -452,12 +387,10 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .error-box h4 {
             color: #c62828;
             margin-bottom: 10px;
         }
-
         .process-steps {
             background: #e8eaf6;
             border: 1px solid #9fa8da;
@@ -465,18 +398,113 @@
             padding: 15px;
             margin-top: 15px;
         }
-
         .process-steps h4 {
             color: #3949ab;
             margin-bottom: 10px;
         }
-
         .process-steps ol {
             margin-left: 20px;
         }
-
         .process-steps li {
             margin-bottom: 8px;
+        }
+        
+        /* Новые стили для улучшенного интерфейса */
+        .parameter-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background: white;
+        }
+        
+        .parameter-checkbox {
+            margin-right: 8px;
+        }
+        
+        .parameter-checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .stickers-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+        
+        .sticker-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .sticker-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .sticker-item-title {
+            font-weight: bold;
+            color: #0088cc;
+        }
+        
+        .remove-sticker-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-sticker-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .sticker-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .sticker-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sticker-field label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .sticker-field input,
+        .sticker-field select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -486,7 +514,6 @@
             <h1>🤖 Полный Telegram Bot API Генератор</h1>
             <p>Создавайте ссылки для Telegram Bot API с автоматическим открытием и поддержкой файлов</p>
         </div>
-
         <div class="main-content">
             <div class="setup-section">
                 <h3>📋 Как начать работу с ботом:</h3>
@@ -498,11 +525,9 @@
                     <li>Используйте этот генератор для создания API ссылок</li>
                 </ol>
             </div>
-
             <div class="search-section">
                 <input type="text" class="search-box" placeholder="🔍 Поиск методов API..." id="searchInput">
             </div>
-
             <div class="parameter-group">
                 <label class="parameter-label">Bot Token <span class="required">*</span></label>
                 <input type="text" class="parameter-input" id="botToken" placeholder="123456789:ABCdefGHIjklMNOpqrsTUVwxyz123456789">
@@ -512,35 +537,29 @@
                     <p>Ваш токен будет автоматически сохранен в браузере для удобства. При следующем посещении он будет подставлен автоматически.</p>
                 </div>
             </div>
-
             <div class="tabs">
                 <div class="tab active" onclick="switchTab('methods')">📋 Все методы</div>
                 <div class="tab" onclick="switchTab('categories')">📂 Категории</div>
             </div>
-
             <div class="tab-content active" id="methods-tab">
                 <div class="method-grid" id="methodGrid">
                     <!-- Методы будут добавлены через JavaScript -->
                 </div>
             </div>
-
             <div class="tab-content" id="categories-tab">
                 <div class="category-grid" id="categoryGrid">
                     <!-- Категории будут добавлены через JavaScript -->
                 </div>
             </div>
-
             <div class="parameters-section" id="parametersSection">
                 <h3>📝 Параметры метода</h3>
                 <div id="parametersContainer">
                     <!-- Параметры будут добавлены динамически -->
                 </div>
             </div>
-
             <div class="generate-section">
                 <button class="generate-btn" onclick="generateAndOpen()">🚀 Сгенерировать и открыть ссылку</button>
             </div>
-
             <div class="result-section" id="resultSection">
                 <h3>🔗 Сгенерированная ссылка:</h3>
                 <div class="result-url" id="resultUrl"></div>
@@ -553,7 +572,6 @@
                         <!-- Примеры будут добавлены динамически -->
                     </div>
                 </div>
-
                 <div id="fileInfoSection" style="display: none;">
                     <div class="file-info">
                         <h4>📁 Информация о скачивании файлов:</h4>
@@ -566,7 +584,6 @@
                         <p><strong>Формат ссылки для скачивания:</strong><br>
                         <code>https://api.telegram.org/file/bot&lt;token&gt;/&lt;file_path&gt;</code></p>
                     </div>
-
                     <div class="file-steps">
                         <h4>🔧 Пошаговая инструкция:</h4>
                         <ol>
@@ -581,7 +598,6 @@
                         </ol>
                     </div>
                 </div>
-
                 <div id="stickerInfoSection" style="display: none;">
                     <div class="sticker-info">
                         <h4>🏷️ Информация о создании стикеров:</h4>
@@ -593,7 +609,6 @@
                             <li><strong>sticker_type:</strong> Тип стикера (см. таблицу ниже)</li>
                         </ul>
                     </div>
-
                     <div class="error-box">
                         <h4>⚠️ Важное замечание об ошибке:</h4>
                         <p>Если вы получаете ошибку "can't parse stickers JSON object", это означает, что:</p>
@@ -604,7 +619,6 @@
                         </ul>
                         <p>Проверьте формат JSON согласно примерам ниже!</p>
                     </div>
-
                     <div class="process-steps">
                         <h4>🔄 Правильный процесс создания стикерпака:</h4>
                         <ol>
@@ -614,7 +628,6 @@
                             <li><strong>Шаг 4:</strong> Используйте полученные FileID в параметре stickers</li>
                         </ol>
                     </div>
-
                     <div class="sticker-types">
                         <h4>🎨 Типы стикеров:</h4>
                         <table>
@@ -644,7 +657,6 @@
                             </tr>
                         </table>
                     </div>
-
                     <div class="sticker-info">
                         <h4>📝 Формат поля stickers:</h4>
                         <p>Поле stickers должно быть массивом JSON объектов. Каждый объект содержит:</p>
@@ -667,7 +679,6 @@
     "format": "static"
   }
 ]</div>
-
                         <h5>Пример для TGS стикеров:</h5>
                         <div class="json-example">[
   {
@@ -681,7 +692,6 @@
     "format": "animated"
   }
 ]</div>
-
                         <h5>Пример для WEBM стикеров:</h5>
                         <div class="json-example">[
   {
@@ -696,7 +706,6 @@
   }
 ]</div>
                     </div>
-
                     <div class="process-steps">
                         <h4>📋 Полный пример создания стикерпака:</h4>
                         <p><strong>1. Загрузка стикера:</strong></p>
@@ -720,11 +729,9 @@
             </div>
         </div>
     </div>
-
     <div class="notification" id="notification">
         Ссылка автоматически открыта в новой вкладке!
     </div>
-
     <script>
         // Полный список методов Telegram Bot API на основе официальной документации
         const telegramApiMethods = {
@@ -828,7 +835,6 @@
                     }
                 ]
             },
-
             // Отправка сообщений
             'sendMessage': {
                 name: 'sendMessage',
@@ -837,7 +843,7 @@
                 parameters: {
                     'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
                     'text': { type: 'string', required: true, description: 'Текст сообщения' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'entities': { type: 'array', required: false, description: 'Список entities для форматирования' },
                     'link_preview_options': { type: 'object', required: false, description: 'Опции предпросмотра ссылок' },
                     'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
@@ -885,7 +891,7 @@
                     'message_id': { type: 'integer', required: true, description: 'ID сообщения' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'caption': { type: 'string', required: false, description: 'Новая подпись' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
                     'protect_content': { type: 'boolean', required: false, description: 'Защитить контент' },
@@ -908,7 +914,7 @@
                     'photo': { type: 'string', required: true, description: 'FileID, URL или файл' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'caption': { type: 'string', required: false, description: 'Подпись к фото' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'has_spoiler': { type: 'boolean', required: false, description: 'Фото является спойлером' },
                     'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
@@ -932,7 +938,7 @@
                     'audio': { type: 'string', required: true, description: 'FileID, URL или файл' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'caption': { type: 'string', required: false, description: 'Подпись к аудио' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'duration': { type: 'integer', required: false, description: 'Длительность аудио' },
                     'performer': { type: 'string', required: false, description: 'Исполнитель' },
@@ -959,7 +965,7 @@
                     'document': { type: 'string', required: true, description: 'FileID, URL или файл' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'caption': { type: 'string', required: false, description: 'Подпись к документу' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'thumbnail': { type: 'string', required: false, description: 'Миниатюра' },
                     'disable_content_type_detection': { type: 'boolean', required: false, description: 'Отключить определение типа контента' },
@@ -988,7 +994,7 @@
                     'height': { type: 'integer', required: false, description: 'Высота видео' },
                     'thumbnail': { type: 'string', required: false, description: 'Миниатюра' },
                     'caption': { type: 'string', required: false, description: 'Подпись к видео' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'has_spoiler': { type: 'boolean', required: false, description: 'Видео является спойлером' },
                     'supports_streaming': { type: 'boolean', required: false, description: 'Поддерживает стриминг' },
@@ -1019,7 +1025,7 @@
                     'height': { type: 'integer', required: false, description: 'Высота анимации' },
                     'thumbnail': { type: 'string', required: false, description: 'Миниатюра' },
                     'caption': { type: 'string', required: false, description: 'Подпись к анимации' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'has_spoiler': { type: 'boolean', required: false, description: 'Анимация является спойлером' },
                     'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
@@ -1043,7 +1049,7 @@
                     'voice': { type: 'string', required: true, description: 'FileID, URL или файл' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'caption': { type: 'string', required: false, description: 'Подпись к голосовому сообщению' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
+                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'caption_entities': { type: 'array', required: false, description: 'Entities для подписи' },
                     'duration': { type: 'integer', required: false, description: 'Длительность голосового сообщения' },
                     'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' },
@@ -1185,11 +1191,11 @@
                     'options': { type: 'array', required: true, description: 'Варианты ответов' },
                     'message_thread_id': { type: 'integer', required: false, description: 'ID темы' },
                     'is_anonymous': { type: 'boolean', required: false, description: 'Анонимный опрос' },
-                    'type': { type: 'string', required: false, description: 'Тип опроса' },
+                    'type': { type: 'string', required: false, description: 'Тип опроса', options: ['regular', 'quiz'] },
                     'allows_multiple_answers': { type: 'boolean', required: false, description: 'Разрешить несколько ответов' },
                     'correct_option_id': { type: 'integer', required: false, description: 'ID правильного ответа' },
                     'explanation': { type: 'string', required: false, description: 'Объяснение' },
-                    'explanation_parse_mode': { type: 'string', required: false, description: 'Режим форматирования объяснения' },
+                    'explanation_parse_mode': { type: 'string', required: false, description: 'Режим форматирования объяснения', options: ['HTML', 'Markdown', 'MarkdownV2'] },
                     'explanation_entities': { type: 'array', required: false, description: 'Entities объяснения' },
                     'open_period': { type: 'integer', required: false, description: 'Период открытия' },
                     'close_date': { type: 'integer', required: false, description: 'Дата закрытия' },
@@ -1226,543 +1232,7 @@
                     }
                 ]
             },
-
-            // Редактирование сообщений (теперь в категории messages)
-            'editMessageText': {
-                name: 'editMessageText',
-                description: 'Редактировать текст сообщения',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'text': { type: 'string', required: true, description: 'Новый текст' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
-                    'entities': { type: 'array', required: false, description: 'Список entities' },
-                    'link_preview_options': { type: 'object', required: false, description: 'Опции предпросмотра ссылок' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Редактировать текст сообщения',
-                        params: { chat_id: '123456789', message_id: '789', text: 'Исправленный текст' }
-                    }
-                ]
-            },
-            'editMessageCaption': {
-                name: 'editMessageCaption',
-                description: 'Редактировать подпись к медиа',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'caption': { type: 'string', required: false, description: 'Новая подпись' },
-                    'parse_mode': { type: 'string', required: false, description: 'HTML или Markdown' },
-                    'caption_entities': { type: 'array', required: false, description: 'Entities подписи' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Редактировать подпись к фото',
-                        params: { chat_id: '123456789', message_id: '789', caption: 'Новая подпись к фото' }
-                    }
-                ]
-            },
-            'editMessageMedia': {
-                name: 'editMessageMedia',
-                description: 'Редактировать медиа в сообщении',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'media': { type: 'object', required: true, description: 'Новый медиа объект' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Заменить фото в сообщении',
-                        params: { chat_id: '123456789', message_id: '789', media: '{"type": "photo", "media": "https://example.com/new_photo.jpg"}' }
-                    }
-                ]
-            },
-            'editMessageLiveLocation': {
-                name: 'editMessageLiveLocation',
-                description: 'Редактировать живое местоположение',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'latitude': { type: 'float', required: true, description: 'Широта' },
-                    'longitude': { type: 'float', required: true, description: 'Долгота' },
-                    'horizontal_accuracy': { type: 'float', required: false, description: 'Горизонтальная точность' },
-                    'heading': { type: 'integer', required: false, description: 'Направление' },
-                    'proximity_alert_radius': { type: 'integer', required: false, description: 'Радиус оповещения' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Обновить живое местоположение',
-                        params: { chat_id: '123456789', message_id: '789', latitude: '55.7560', longitude: '37.6174' }
-                    }
-                ]
-            },
-            'editMessageReplyMarkup': {
-                name: 'editMessageReplyMarkup',
-                description: 'Редактировать клавиатуру сообщения',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'reply_markup': { type: 'object', required: false, description: 'Новая клавиатура' }
-                },
-                examples: [
-                    {
-                        description: 'Изменить клавиатуру сообщения',
-                        params: { chat_id: '123456789', message_id: '789', reply_markup: '{"inline_keyboard": [[{"text": "Новая кнопка", "callback_data": "new"}]]}' }
-                    }
-                ]
-            },
-            'stopMessageLiveLocation': {
-                name: 'stopMessageLiveLocation',
-                description: 'Остановить трансляцию местоположения',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: false, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' },
-                    'inline_message_id': { type: 'string', required: false, description: 'ID инлайн сообщения' },
-                    'reply_markup': { type: 'object', required: false, description: 'Клавиатура или инлайн-кнопки' }
-                },
-                examples: [
-                    {
-                        description: 'Остановить трансляцию местоположения',
-                        params: { chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-
-            // Удаление сообщений (теперь в категории messages)
-            'deleteMessage': {
-                name: 'deleteMessage',
-                description: 'Удалить сообщение',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
-                    'message_id': { type: 'integer', required: true, description: 'ID сообщения' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить сообщение',
-                        params: { chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-            'deleteMessages': {
-                name: 'deleteMessages',
-                description: 'Удалить несколько сообщений',
-                category: 'messages',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата' },
-                    'message_ids': { type: 'array', required: true, description: 'ID сообщений' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить несколько сообщений',
-                        params: { chat_id: '123456789', message_ids: '[789, 790, 791]' }
-                    }
-                ]
-            },
-
-            // Чаты и группы
-            'getChat': {
-                name: 'getChat',
-                description: 'Получить информацию о чате',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Получить информацию о чате',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'getChatAdministrators': {
-                name: 'getChatAdministrators',
-                description: 'Получить администраторов чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Получить список администраторов',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'getChatMemberCount': {
-                name: 'getChatMemberCount',
-                description: 'Получить количество участников чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Получить количество участников',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'getChatMember': {
-                name: 'getChatMember',
-                description: 'Получить информацию об участнике чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
-                },
-                examples: [
-                    {
-                        description: 'Получить информацию об участнике',
-                        params: { chat_id: '123456789', user_id: '987654321' }
-                    }
-                ]
-            },
-            'setChatAdministratorCustomTitle': {
-                name: 'setChatAdministratorCustomTitle',
-                description: 'Установить кастомный заголовок администратора',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'custom_title': { type: 'string', required: true, description: 'Кастомный заголовок' }
-                },
-                examples: [
-                    {
-                        description: 'Установить заголовок администратора',
-                        params: { chat_id: '123456789', user_id: '987654321', custom_title: 'Модератор' }
-                    }
-                ]
-            },
-            'banChatMember': {
-                name: 'banChatMember',
-                description: 'Забанить участника чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'until_date': { type: 'integer', required: false, description: 'Дата разбана' },
-                    'revoke_messages': { type: 'boolean', required: false, description: 'Удалить сообщения' }
-                },
-                examples: [
-                    {
-                        description: 'Забанить участника',
-                        params: { chat_id: '123456789', user_id: '987654321' }
-                    }
-                ]
-            },
-            'unbanChatMember': {
-                name: 'unbanChatMember',
-                description: 'Разбанить участника чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'only_if_banned': { type: 'boolean', required: false, description: 'Только если забанен' }
-                },
-                examples: [
-                    {
-                        description: 'Разбанить участника',
-                        params: { chat_id: '123456789', user_id: '987654321' }
-                    }
-                ]
-            },
-            'restrictChatMember': {
-                name: 'restrictChatMember',
-                description: 'Ограничить участника чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'permissions': { type: 'object', required: true, description: 'Права доступа' },
-                    'use_independent_chat_permissions': { type: 'boolean', required: false, description: 'Использовать независимые права' },
-                    'until_date': { type: 'integer', required: false, description: 'Дата окончания ограничений' }
-                },
-                examples: [
-                    {
-                        description: 'Ограничить права участника',
-                        params: { chat_id: '123456789', user_id: '987654321', permissions: '{"can_send_messages": false}' }
-                    }
-                ]
-            },
-            'promoteChatMember': {
-                name: 'promoteChatMember',
-                description: 'Повысить участника чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
-                    'is_anonymous': { type: 'boolean', required: false, description: 'Анонимный администратор' },
-                    'can_manage_chat': { type: 'boolean', required: false, description: 'Может управлять чатом' },
-                    'can_post_messages': { type: 'boolean', required: false, description: 'Может публиковать сообщения' },
-                    'can_edit_messages': { type: 'boolean', required: false, description: 'Может редактировать сообщения' },
-                    'can_delete_messages': { type: 'boolean', required: false, description: 'Может удалять сообщения' },
-                    'can_manage_video_chats': { type: 'boolean', required: false, description: 'Может управлять видеочатами' },
-                    'can_restrict_members': { type: 'boolean', required: false, description: 'Может ограничивать участников' },
-                    'can_promote_members': { type: 'boolean', required: false, description: 'Может повышать участников' },
-                    'can_change_info': { type: 'boolean', required: false, description: 'Может изменять информацию' },
-                    'can_invite_users': { type: 'boolean', required: false, description: 'Может приглашать пользователей' },
-                    'can_pin_messages': { type: 'boolean', required: false, description: 'Может закреплять сообщения' },
-                    'can_manage_topics': { type: 'boolean', required: false, description: 'Может управлять темами' },
-                    'can_post_stories': { type: 'boolean', required: false, description: 'Может публиковать сторис' },
-                    'can_edit_stories': { type: 'boolean', required: false, description: 'Может редактировать сторис' },
-                    'can_delete_stories': { type: 'boolean', required: false, description: 'Может удалять сторис' }
-                },
-                examples: [
-                    {
-                        description: 'Сделать участника администратором',
-                        params: { chat_id: '123456789', user_id: '987654321', can_manage_chat: true, can_delete_messages: true }
-                    }
-                ]
-            },
-            'setChatPermissions': {
-                name: 'setChatPermissions',
-                description: 'Установить права чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'permissions': { type: 'object', required: true, description: 'Права доступа' },
-                    'use_independent_chat_permissions': { type: 'boolean', required: false, description: 'Использовать независимые права' }
-                },
-                examples: [
-                    {
-                        description: 'Установить права для чата',
-                        params: { chat_id: '123456789', permissions: '{"can_send_messages": true, "can_send_media": false}' }
-                    }
-                ]
-            },
-            'exportChatInviteLink': {
-                name: 'exportChatInviteLink',
-                description: 'Экспортировать ссылку-приглашение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Получить ссылку-приглашение',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'createChatInviteLink': {
-                name: 'createChatInviteLink',
-                description: 'Создать ссылку-приглашение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'name': { type: 'string', required: false, description: 'Название ссылки' },
-                    'expire_date': { type: 'integer', required: false, description: 'Дата истечения' },
-                    'member_limit': { type: 'integer', required: false, description: 'Лимит участников' },
-                    'creates_join_request': { type: 'boolean', required: false, description: 'Создает запрос на вступление' }
-                },
-                examples: [
-                    {
-                        description: 'Создать новую ссылку-приглашение',
-                        params: { chat_id: '123456789', name: 'Приглашение для друзей', member_limit: '10' }
-                    }
-                ]
-            },
-            'editChatInviteLink': {
-                name: 'editChatInviteLink',
-                description: 'Редактировать ссылку-приглашение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'invite_link': { type: 'string', required: true, description: 'Ссылка-приглашение' },
-                    'name': { type: 'string', required: false, description: 'Название ссылки' },
-                    'expire_date': { type: 'integer', required: false, description: 'Дата истечения' },
-                    'member_limit': { type: 'integer', required: false, description: 'Лимит участников' },
-                    'creates_join_request': { type: 'boolean', required: false, description: 'Создает запрос на вступление' }
-                },
-                examples: [
-                    {
-                        description: 'Редактировать существующую ссылку',
-                        params: { chat_id: '123456789', invite_link: 'https://t.me/joinchat/ABC123', member_limit: '20' }
-                    }
-                ]
-            },
-            'revokeChatInviteLink': {
-                name: 'revokeChatInviteLink',
-                description: 'Отозвать ссылку-приглашение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'invite_link': { type: 'string', required: true, description: 'Ссылка-приглашение' }
-                },
-                examples: [
-                    {
-                        description: 'Отозвать ссылку-приглашение',
-                        params: { chat_id: '123456789', invite_link: 'https://t.me/joinchat/ABC123' }
-                    }
-                ]
-            },
-            'approveChatJoinRequest': {
-                name: 'approveChatJoinRequest',
-                description: 'Одобрить запрос на вступление',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
-                },
-                examples: [
-                    {
-                        description: 'Одобрить запрос на вступление',
-                        params: { chat_id: '123456789', user_id: '987654321' }
-                    }
-                ]
-            },
-            'declineChatJoinRequest': {
-                name: 'declineChatJoinRequest',
-                description: 'Отклонить запрос на вступление',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'user_id': { type: 'integer', required: true, description: 'ID пользователя' }
-                },
-                examples: [
-                    {
-                        description: 'Отклонить запрос на вступление',
-                        params: { chat_id: '123456789', user_id: '987654321' }
-                    }
-                ]
-            },
-            'setChatPhoto': {
-                name: 'setChatPhoto',
-                description: 'Установить фото чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'photo': { type: 'string', required: true, description: 'Файл фото' }
-                },
-                examples: [
-                    {
-                        description: 'Установить фото для чата',
-                        params: { chat_id: '123456789', photo: 'https://example.com/chat_photo.jpg' }
-                    }
-                ]
-            },
-            'deleteChatPhoto': {
-                name: 'deleteChatPhoto',
-                description: 'Удалить фото чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Удалить фото чата',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'setChatTitle': {
-                name: 'setChatTitle',
-                description: 'Установить название чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'title': { type: 'string', required: true, description: 'Название чата' }
-                },
-                examples: [
-                    {
-                        description: 'Изменить название чата',
-                        params: { chat_id: '123456789', title: 'Новый название чата' }
-                    }
-                ]
-            },
-            'setChatDescription': {
-                name: 'setChatDescription',
-                description: 'Установить описание чата',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'description': { type: 'string', required: false, description: 'Описание чата' }
-                },
-                examples: [
-                    {
-                        description: 'Установить описание чата',
-                        params: { chat_id: '123456789', description: 'Это наш общий чат' }
-                    }
-                ]
-            },
-            'pinChatMessage': {
-                name: 'pinChatMessage',
-                description: 'Закрепить сообщение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'message_id': { type: 'integer', required: true, description: 'ID сообщения' },
-                    'disable_notification': { type: 'boolean', required: false, description: 'Отключить уведомления' }
-                },
-                examples: [
-                    {
-                        description: 'Закрепить сообщение',
-                        params: { chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-            'unpinChatMessage': {
-                name: 'unpinChatMessage',
-                description: 'Открепить сообщение',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' },
-                    'message_id': { type: 'integer', required: false, description: 'ID сообщения' }
-                },
-                examples: [
-                    {
-                        description: 'Открепить конкретное сообщение',
-                        params: { chat_id: '123456789', message_id: '789' }
-                    }
-                ]
-            },
-            'unpinAllChatMessages': {
-                name: 'unpinAllChatMessages',
-                description: 'Открепить все сообщения',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Открепить все сообщения в чате',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-            'leaveChat': {
-                name: 'leaveChat',
-                description: 'Покинуть чат',
-                category: 'chats',
-                parameters: {
-                    'chat_id': { type: 'string', required: true, description: 'ID чата или @username' }
-                },
-                examples: [
-                    {
-                        description: 'Покинуть чат',
-                        params: { chat_id: '123456789' }
-                    }
-                ]
-            },
-
-            // Стикеры и GIF
+            // Стикеры
             'sendSticker': {
                 name: 'sendSticker',
                 description: 'Отправить стикер',
@@ -1819,7 +1289,7 @@
                 parameters: {
                     'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
                     'sticker': { type: 'string', required: true, description: 'Файл стикера' },
-                    'sticker_format': { type: 'string', required: true, description: 'Формат стикера' }
+                    'sticker_format': { type: 'string', required: true, description: 'Формат стикера', options: ['static', 'animated', 'video'] }
                 },
                 examples: [
                     {
@@ -1840,8 +1310,8 @@
                     'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
                     'name': { type: 'string', required: true, description: 'Название набора' },
                     'title': { type: 'string', required: true, description: 'Заголовок набора' },
-                    'stickers': { type: 'array', required: true, description: 'Стикеры' },
-                    'sticker_type': { type: 'string', required: false, description: 'Тип стикера' },
+                    'stickers': { type: 'stickers', required: true, description: 'Стикеры' },
+                    'sticker_type': { type: 'string', required: false, description: 'Тип стикера', options: ['png', 'tgs', 'webm'] },
                     'needs_repainting': { type: 'boolean', required: false, description: 'Требуется перекрашивание' }
                 },
                 examples: [
@@ -1851,8 +1321,7 @@
                             user_id: '123456789', 
                             name: 'MyStickers_by_mybot', 
                             title: 'Мои стикеры', 
-                            sticker_type: 'png',
-                            stickers: '[{"sticker": "ABC123", "emoji": "😀", "format": "static"}, {"sticker": "DEF456", "emoji": "😃", "format": "static"}]' 
+                            sticker_type: 'png'
                         }
                     },
                     {
@@ -1861,8 +1330,7 @@
                             user_id: '123456789', 
                             name: 'AnimatedStickers_by_mybot', 
                             title: 'Анимированные стикеры', 
-                            sticker_type: 'tgs',
-                            stickers: '[{"sticker": "GHI789", "emoji": "🎉", "format": "animated"}, {"sticker": "JKL012", "emoji": "🎊", "format": "animated"}]' 
+                            sticker_type: 'tgs'
                         }
                     }
                 ]
@@ -1874,12 +1342,12 @@
                 parameters: {
                     'user_id': { type: 'integer', required: true, description: 'ID пользователя' },
                     'name': { type: 'string', required: true, description: 'Название набора' },
-                    'sticker': { type: 'object', required: true, description: 'Стикер' }
+                    'sticker': { type: 'sticker', required: true, description: 'Стикер' }
                 },
                 examples: [
                     {
                         description: 'Добавить стикер в существующий набор',
-                        params: { user_id: '123456789', name: 'MyStickers_by_mybot', sticker: '{"sticker": "file_id", "emoji": "😀", "format": "static"}' }
+                        params: { user_id: '123456789', name: 'MyStickers_by_mybot' }
                     }
                 ]
             },
@@ -1911,7 +1379,442 @@
                         params: { sticker: 'ABC123' }
                     }
                 ]
-            },
-            'setStickerEmojiList': {
-                name: 'setStickerEmojiList',
-                description: 'Установить список эмодзи для стик
+            }
+        };
+
+        // Категории методов
+        const categories = {
+            'basic': { name: 'Базовые', icon: '⚙️', description: 'Основные методы для работы с ботом' },
+            'messages': { name: 'Сообщения', icon: '💬', description: 'Отправка и редактирование сообщений' },
+            'media': { name: 'Медиа', icon: '📷', description: 'Отправка фото, видео, аудио и документов' },
+            'location': { name: 'Локация', icon: '📍', description: 'Отправка местоположения и заведений' },
+            'contact': { name: 'Контакты', icon: '👤', description: 'Отправка контактной информации' },
+            'polls': { name: 'Опросы', icon: '📊', description: 'Создание и управление опросами' },
+            'games': { name: 'Игры', icon: '🎮', description: 'Отправка игровых элементов' },
+            'stickers': { name: 'Стикеры', icon: '🏷️', description: 'Создание и управление стикерами' }
+        };
+
+        // Текущий выбранный метод
+        let selectedMethod = null;
+        let stickerCount = 0;
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBotToken();
+            renderMethods();
+            renderCategories();
+            setupSearch();
+        });
+
+        // Загрузка токена из localStorage
+        function loadBotToken() {
+            const savedToken = localStorage.getItem('telegramBotToken');
+            if (savedToken) {
+                document.getElementById('botToken').value = savedToken;
+            }
+        }
+
+        // Сохранение токена в localStorage
+        function saveBotToken() {
+            const token = document.getElementById('botToken').value;
+            if (token) {
+                localStorage.setItem('telegramBotToken', token);
+            }
+        }
+
+        // Отображение всех методов
+        function renderMethods() {
+            const methodGrid = document.getElementById('methodGrid');
+            methodGrid.innerHTML = '';
+            
+            Object.keys(telegramApiMethods).forEach(methodKey => {
+                const method = telegramApiMethods[methodKey];
+                const methodCard = document.createElement('div');
+                methodCard.className = 'method-card';
+                methodCard.onclick = () => selectMethod(methodKey);
+                
+                methodCard.innerHTML = `
+                    <div class="method-name">${method.name}</div>
+                    <div class="method-description">${method.description}</div>
+                `;
+                
+                methodGrid.appendChild(methodCard);
+            });
+        }
+
+        // Отображение категорий
+        function renderCategories() {
+            const categoryGrid = document.getElementById('categoryGrid');
+            categoryGrid.innerHTML = '';
+            
+            Object.keys(categories).forEach(categoryKey => {
+                const category = categories[categoryKey];
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.onclick = () => filterByCategory(categoryKey);
+                
+                categoryCard.innerHTML = `
+                    <div class="category-icon">${category.icon}</div>
+                    <div class="category-name">${category.name}</div>
+                    <div class="category-description">${category.description}</div>
+                `;
+                
+                categoryGrid.appendChild(categoryCard);
+            });
+        }
+
+        // Настройка поиска
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const methodCards = document.querySelectorAll('.method-card');
+                
+                methodCards.forEach(card => {
+                    const methodName = card.querySelector('.method-name').textContent.toLowerCase();
+                    const methodDescription = card.querySelector('.method-description').textContent.toLowerCase();
+                    
+                    if (methodName.includes(searchTerm) || methodDescription.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Переключение вкладок
+        function switchTab(tabName) {
+            // Скрыть все вкладки
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Показать выбранную вкладку
+            document.querySelector(`.tab:nth-child(${tabName === 'methods' ? '1' : '2'})`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // Фильтрация по категории
+        function filterByCategory(category) {
+            const methodCards = document.querySelectorAll('.method-card');
+            
+            methodCards.forEach((card, index) => {
+                const methodKey = Object.keys(telegramApiMethods)[index];
+                const method = telegramApiMethods[methodKey];
+                
+                if (method.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Переключиться на вкладку методов
+            switchTab('methods');
+        }
+
+        // Выбор метода
+        function selectMethod(methodKey) {
+            selectedMethod = methodKey;
+            const method = telegramApiMethods[methodKey];
+            
+            // Обновить выделение
+            document.querySelectorAll('.method-card').forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            // Показать секцию параметров
+            const parametersSection = document.getElementById('parametersSection');
+            parametersSection.classList.add('active');
+            
+            // Отобразить параметры
+            renderParameters(method);
+            
+            // Показать соответствующие информационные секции
+            if (methodKey === 'getFile' || methodKey === 'downloadFile') {
+                document.getElementById('fileInfoSection').style.display = 'block';
+                document.getElementById('stickerInfoSection').style.display = 'none';
+            } else if (methodKey.includes('Sticker') || methodKey.includes('sticker')) {
+                document.getElementById('fileInfoSection').style.display = 'none';
+                document.getElementById('stickerInfoSection').style.display = 'block';
+            } else {
+                document.getElementById('fileInfoSection').style.display = 'none';
+                document.getElementById('stickerInfoSection').style.display = 'none';
+            }
+        }
+
+        // Отображение параметров метода
+        function renderParameters(method) {
+            const parametersContainer = document.getElementById('parametersContainer');
+            parametersContainer.innerHTML = '';
+            
+            // Отобразить каждый параметр
+            Object.keys(method.parameters).forEach(paramKey => {
+                const param = method.parameters[paramKey];
+                const paramGroup = document.createElement('div');
+                paramGroup.className = 'parameter-group';
+                
+                const label = document.createElement('label');
+                label.className = 'parameter-label';
+                label.innerHTML = `${paramKey} ${param.required ? '<span class="required">*</span>' : ''}`;
+                paramGroup.appendChild(label);
+                
+                // Создать соответствующий элемент ввода
+                let inputElement;
+                
+                if (param.type === 'boolean') {
+                    // Чекбокс для boolean параметров
+                    inputElement = document.createElement('label');
+                    inputElement.className = 'parameter-checkbox-label';
+                    inputElement.innerHTML = `
+                        <input type="checkbox" class="parameter-checkbox" id="param_${paramKey}" />
+                        <span>Включить</span>
+                    `;
+                } else if (param.options) {
+                    // Выпадающий список для параметров с опциями
+                    inputElement = document.createElement('select');
+                    inputElement.className = 'parameter-select';
+                    inputElement.id = `param_${paramKey}`;
+                    
+                    // Добавить пустой вариант
+                    const emptyOption = document.createElement('option');
+                    emptyOption.value = '';
+                    emptyOption.textContent = 'Не указано';
+                    inputElement.appendChild(emptyOption);
+                    
+                    // Добавить варианты
+                    param.options.forEach(option => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option;
+                        optionElement.textContent = option;
+                        inputElement.appendChild(optionElement);
+                    });
+                } else if (param.type === 'stickers') {
+                    // Специальный интерфейс для стикеров
+                    inputElement = document.createElement('div');
+                    inputElement.className = 'stickers-container';
+                    inputElement.id = `param_${paramKey}`;
+                    
+                    const stickersList = document.createElement('div');
+                    stickersList.id = 'stickers_list';
+                    inputElement.appendChild(stickersList);
+                    
+                    const addButton = document.createElement('button');
+                    addButton.className = 'add-sticker-btn';
+                    addButton.textContent = '+ Добавить стикер';
+                    addButton.onclick = addStickerItem;
+                    inputElement.appendChild(addButton);
+                    
+                    // Добавить хотя бы один стикер по умолчанию
+                    setTimeout(() => addStickerItem(), 100);
+                } else {
+                    // Текстовое поле для остальных параметров
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'text';
+                    inputElement.className = 'parameter-input';
+                    inputElement.id = `param_${paramKey}`;
+                    inputElement.placeholder = param.description;
+                }
+                
+                paramGroup.appendChild(inputElement);
+                
+                // Добавить подсказку
+                if (param.description) {
+                    const help = document.createElement('div');
+                    help.className = 'parameter-help';
+                    help.textContent = param.description;
+                    paramGroup.appendChild(help);
+                }
+                
+                parametersContainer.appendChild(paramGroup);
+            });
+            
+            // Отобразить примеры
+            renderExamples(method);
+        }
+
+        // Добавление элемента стикера
+        function addStickerItem() {
+            const stickersList = document.getElementById('stickers_list');
+            const stickerItem = document.createElement('div');
+            stickerItem.className = 'sticker-item';
+            stickerItem.id = `sticker_${stickerCount++}`;
+            
+            stickerItem.innerHTML = `
+                <div class="sticker-item-header">
+                    <div class="sticker-item-title">Стикер #${stickerCount}</div>
+                    <button class="remove-sticker-btn" onclick="removeStickerItem(this)">×</button>
+                </div>
+                <div class="sticker-fields">
+                    <div class="sticker-field">
+                        <label>FileID или URL</label>
+                        <input type="text" class="sticker-input" placeholder="ABC123" />
+                    </div>
+                    <div class="sticker-field">
+                        <label>Эмодзи</label>
+                        <input type="text" class="emoji-input" placeholder="😀" />
+                    </div>
+                    <div class="sticker-field">
+                        <label>Формат</label>
+                        <select class="format-select">
+                            <option value="static">static</option>
+                            <option value="animated">animated</option>
+                            <option value="video">video</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            
+            stickersList.appendChild(stickerItem);
+        }
+
+        // Удаление элемента стикера
+        function removeStickerItem(button) {
+            const stickerItem = button.closest('.sticker-item');
+            stickerItem.remove();
+        }
+
+        // Отображение примеров использования
+        function renderExamples(method) {
+            const examplesContainer = document.getElementById('examplesContainer');
+            examplesContainer.innerHTML = '';
+            
+            if (method.examples && method.examples.length > 0) {
+                method.examples.forEach(example => {
+                    const exampleItem = document.createElement('div');
+                    exampleItem.className = 'example-item';
+                    
+                    let paramsHtml = '';
+                    Object.keys(example.params).forEach(paramKey => {
+                        paramsHtml += `<strong>${paramKey}:</strong> ${example.params[paramKey]}<br>`;
+                    });
+                    
+                    exampleItem.innerHTML = `
+                        <strong>${example.description}</strong><br>
+                        ${paramsHtml}
+                    `;
+                    
+                    examplesContainer.appendChild(exampleItem);
+                });
+            }
+        }
+
+        // Генерация и открытие ссылки
+        function generateAndOpen() {
+            saveBotToken();
+            
+            const token = document.getElementById('botToken').value;
+            if (!token) {
+                alert('Пожалуйста, введите Bot Token');
+                return;
+            }
+            
+            if (!selectedMethod) {
+                alert('Пожалуйста, выберите метод');
+                return;
+            }
+            
+            const method = telegramApiMethods[selectedMethod];
+            const params = collectParameters(method);
+            
+            // Сгенерировать URL
+            let url = `https://api.telegram.org/bot${token}/${selectedMethod}`;
+            
+            // Добавить параметры
+            const paramStrings = [];
+            Object.keys(params).forEach(key => {
+                if (params[key] !== undefined && params[key] !== '') {
+                    paramStrings.push(`${key}=${encodeURIComponent(params[key])}`);
+                }
+            });
+            
+            if (paramStrings.length > 0) {
+                url += '?' + paramStrings.join('&');
+            }
+            
+            // Показать результат
+            const resultSection = document.getElementById('resultSection');
+            const resultUrl = document.getElementById('resultUrl');
+            resultUrl.textContent = url;
+            resultSection.classList.add('active');
+            
+            // Открыть в новой вкладке
+            window.open(url, '_blank');
+            
+            // Показать уведомление
+            showNotification();
+        }
+
+        // Сбор параметров из формы
+        function collectParameters(method) {
+            const params = {};
+            
+            Object.keys(method.parameters).forEach(paramKey => {
+                const param = method.parameters[paramKey];
+                const element = document.getElementById(`param_${paramKey}`);
+                
+                if (element) {
+                    if (param.type === 'boolean') {
+                        // Для чекбоксов
+                        const checkbox = element.querySelector('.parameter-checkbox');
+                        params[paramKey] = checkbox.checked;
+                    } else if (param.type === 'stickers') {
+                        // Для стикеров - собрать JSON массив
+                        const stickerItems = element.querySelectorAll('.sticker-item');
+                        const stickersArray = [];
+                        
+                        stickerItems.forEach(item => {
+                            const sticker = item.querySelector('.sticker-input').value;
+                            const emoji = item.querySelector('.emoji-input').value;
+                            const format = item.querySelector('.format-select').value;
+                            
+                            if (sticker && emoji && format) {
+                                stickersArray.push({
+                                    sticker: sticker,
+                                    emoji: emoji,
+                                    format: format
+                                });
+                            }
+                        });
+                        
+                        if (stickersArray.length > 0) {
+                            params[paramKey] = JSON.stringify(stickersArray);
+                        }
+                    } else {
+                        // Для обычных полей
+                        const value = element.value;
+                        if (value || param.required) {
+                            params[paramKey] = value;
+                        }
+                    }
+                }
+            });
+            
+            return params;
+        }
+
+        // Копирование в буфер обмена
+        function copyToClipboard() {
+            const resultUrl = document.getElementById('resultUrl');
+            navigator.clipboard.writeText(resultUrl.textContent).then(() => {
+                alert('Ссылка скопирована в буфер обмена');
+            });
+        }
+
+        // Открытие в новой вкладке
+        function openInNewTab() {
+            const resultUrl = document.getElementById('resultUrl');
+            window.open(resultUrl.textContent, '_blank');
+        }
+
+        // Показать уведомление
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
